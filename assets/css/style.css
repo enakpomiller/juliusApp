@@ -1,34 +1,98 @@
 /* body{
   background:red;
 } */
+*, html {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+/* small devices */
 
 .header{
-   width:110%;
-   position:relative;
+   width:100%;
+   /* position:relative;s */
    right:8px;
-   bottom:20px;
-   padding:40px 20px;;
-   background: black;
+   /* bottom:20px; */
+   padding:0px 20px;;
+   background:#F7F7F9;
 }
-
 
 .nav{
    position:relative;
-   color:white;
-   width:30%;
-   margin:auto;
-   
+   bottom:12px;
+   display: flex;
+   flex-wrap: wrap;
+   color: white;
+   width: 30%;
+   margin: auto;
 }
 
 .txt{
-    position:relative;
-    color:#ca0404;
+    color: #ca0404;
     text-decoration:none;
     padding: 20px;
     top:8px;
 
   }
-  a:hover{
+  .b:hover{
    background: #ca0404;
    color:white;
+}
+
+
+.footer{
+   width:100%;
+   position:relative;
+   right:8px;
+   height:500px;
+  top:50px;
+   padding:40px 20px;;
+   background:black;
+
+}
+
+.footer-nav{
+  position:relative;
+  top:80px;
+  text-align: center;
+}
+
+.news-letter{
+  position:relative;
+  top:70px;
+  text-align: center;
+  color:white;
+  font-size: 2rem;
+  font-family: sans-serif;
+}
+
+.input-footer{
+    position:relative;
+    width:30%;
+    padding:15px 20px;
+    border-radius:4px;
+    border: 2px solid #ca0404;
+
+}
+
+.footer-btn{
+  background: #ca0404;
+  position:relative;
+  right:10px;
+  color:white;
+  padding:16px;
+  border:0px solid red;
+}
+
+
+.logo{
+   position:relative;
+   top:30px;
+   display: flex;
+   flex-wrap: wrap;
+   color:#ca0404;
+   font-size:2rem;
+   font-weight: bold;
+
 }
