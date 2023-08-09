@@ -10,10 +10,9 @@ class Home extends CI_Controller {
 		}
 
 
-	public function index()
-	{
-  $this->data['title'] = " Landing Page";
-    $this->data['page_title'] = "home";
+	public function index(){
+      $this->data['title'] = " Landing Page";
+      $this->data['page_title'] = "home";
 	  $this->load->view('layout/index',$this->data);
 	}
 }

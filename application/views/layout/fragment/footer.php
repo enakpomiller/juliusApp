@@ -8,3 +8,10 @@
      <button class="footer-btn"> subscribe </button>
   </div>
 </div>
+
+
+
+</body>
+</html>
+
+<script src="<?=base_url()?>assets/css/bootstrap/js/bootstrap.bundle.min.js"></script>

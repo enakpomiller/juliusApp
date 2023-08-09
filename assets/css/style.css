@@ -16,6 +16,10 @@
    /* bottom:20px; */
    padding:0px 20px;;
    background:#F7F7F9;
+   position: fixed;
+  
+
+
 }
 
 .nav{
@@ -96,3 +100,23 @@
    font-weight: bold;
 
 }
+
+.landing-txt{
+  position:relative;
+  top:30px;
+  text-align: center;
+  text-transform: capitalize;
+  font-size:3rem;font-family: sans-serif;
+ }
+
+
+
+
+
+
+
+
+
+
+
+ 
