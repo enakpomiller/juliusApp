@@ -18,6 +18,12 @@ class Home extends CI_Controller {
 
 
 	public function signup(){
-	  echo " register ";
+	  $this->data['title'] = "Signup";
+	  $this->data['page_title'] = "signup";
+	  $this->load->view('layout/index2',$this->data);
 	}
+
+
+
+
 }
