@@ -1,14 +1,19 @@
 
-<style> 
+     <style> 
         .fix-image{
         background:url('<?=base_url()?>assets/images/cloth2.jpeg');
         height:500px;
         background-size: cover;
         background-attachment:fixed;
         margin-top:100px;
-        opacity:9999;
+        filter: brightness(35%);
         }
-</style>
+        .inner{
+          position:absolute;
+          top:0px;
+          left:0px; right:0px;
+        }
+    </style>
 
 <div class="container">
 
@@ -57,8 +62,6 @@
                 </div>
            <!-- end slider carousel --> 
      </div>
-
-
 </div>
 
 

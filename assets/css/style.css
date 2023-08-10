@@ -15,10 +15,9 @@
    right:8px;
    /* bottom:20px; */
    padding:0px 20px;;
-   background:#F7F7F9;
-   position: fixed;
+   /* background:#F7F7F9; */
+   background:#f8f9fa;
   
-
 
 }
 
@@ -30,6 +29,7 @@
    color: white;
    width: 30%;
    margin: auto;
+   bottom:25px;
 }
 
 .txt{
@@ -39,10 +39,13 @@
     top:8px;
 
   }
+
   .b:hover{
-   background: #ca0404;
-   color:white;
-}
+   /* background: #ca0404; */
+   /* background:black;
+   border-radius: 5px;; */
+  
+  }
 
 
 .footer{
@@ -109,7 +112,11 @@
   font-size:3rem;font-family: sans-serif;
  }
 
-
+.auth{
+  position:relative;
+  bottom:100px;
+  background: red;
+}
 
 
 
