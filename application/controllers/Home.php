@@ -23,6 +23,24 @@ class Home extends CI_Controller {
 	  $this->load->view('layout/index2',$this->data);
 	}
 
+	public function store(){
+	  $this->data['title'] = " Store front";
+	  $this->data['page_title'] = "store";
+	  $this->load->view('layout/index2',$this->data);
+	}
+
+	public function about(){
+	  $this->data['title'] = " About Us";
+	  $this->data['page_title'] = "about";
+	  $this->load->view('layout/index2',$this->data);
+	}
+
+	public function contact(){
+		$this->data['title'] = " Contact Us";
+		$this->data['page_title'] = "contact";
+		$this->load->view('layout/index2',$this->data);
+	  }
+
 
 
 

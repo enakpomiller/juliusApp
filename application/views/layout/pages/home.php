@@ -23,15 +23,15 @@
     <div class="row d-flex justify-content-center gap-3">
             <p class="text-uppercase text-center  fs-6"> view our latest collections</p>
             <div class="col-md-2 w-25" style="overflow:hidden;">
-                    <img src="<?=base_url()?>assets/images/cloth2.jpeg" style="height:300px;">
+                    <img src="<?=base_url()?>assets/images/pi3.jpeg" class="w-100" style="height:300px;">
                     <p class="text-center"> shrit </p>
             </div>
             <div class="col-md-2 w-25" style="overflow:hidden;">
-            <img src="<?=base_url()?>assets/images/cloth2.jpeg"  style="height:300px;">
+            <img src="<?=base_url()?>assets/images/pi3.jpeg" class="w-100" style="height:300px;">
             <p class="text-center"> shrit </p>
             </div>
             <div class="col-md-2 w-25" style="overflow:hidden;">
-            <img src="<?=base_url()?>assets/images/cloth2.jpeg"  style="height:300px;">
+            <img src="<?=base_url()?>assets/images/pi3.jpeg" class="w-100" style="height:300px;">
             <p class="text-center"> shrit </p>
             </div>
 
@@ -54,9 +54,9 @@
                                         <img src="<?=base_url()?>assets/images/cloth2.jpeg"  class="w-25" style="height:300px;">
                                 </div>
                                 <div class="carousel-item text-center">
-                                        <img src="<?=base_url()?>assets/images/cloth2.jpeg" class="w-25" style="height:300px;">
-                                        <img src="<?=base_url()?>assets/images/cloth2.jpeg"  class="w-25" style="height:300px;">
-                                        <img src="<?=base_url()?>assets/images/cloth2.jpeg"  class="w-25" style="height:300px;">
+                                        <img src="<?=base_url()?>assets/images/pi3.jpeg" class="w-25" style="height:300px;">
+                                        <img src="<?=base_url()?>assets/images/pi3.jpeg"  class="w-25" style="height:300px;">
+                                        <img src="<?=base_url()?>assets/images/pi3.jpeg"  class="w-25" style="height:300px;">
                                 </div>
                         </div>
                 </div>
