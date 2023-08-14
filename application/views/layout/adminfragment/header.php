@@ -26,9 +26,7 @@
      <ul style="position:relative;top:70px;">
       <li class="text-white mt-4"> <a href="<?=base_url('admin/dashboard')?>" class="text-white" style="text-decoration:none;"> Dashboard  </a>  </li>
       <li class="text-white mt-4"><a href="<?=site_url('admin/create')?>" class="text-white" style="text-decoration:none;"> Create Product </a> </li>
-      <li class="text-white mt-4"> Create Product </li>
-      <li class="text-white mt-4"> Create Product </li>
-      <li class="text-white mt-4"> Create Product </li>
+      <li class="text-white mt-4"><a href="<?=site_url('admin/manage_prod')?>" class="text-white" style="text-decoration:none;"> Manage Product </a> </li>
 
 </ul>   
 </div>

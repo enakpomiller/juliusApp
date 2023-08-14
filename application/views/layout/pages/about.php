@@ -71,6 +71,29 @@ body{
    }
     </style>
 
+<style> 
+.image-container {
+    width: 200px; /* Adjust to your image size */
+    height: 200px; /* Adjust to your image size */
+    position: relative;
+    animation: waggle 2s ease-in-out infinite;
+}
+
+@keyframes waggle {
+    0%, 100% {
+        transform: translateX(0); /* Start and end position */
+    }
+    25% {
+        transform: translateX(-10px); /* Middle position - waggle left */
+    }
+    75% {
+        transform: translateX(10px); /* Middle position - waggle right */
+    }
+}
+
+</style>
+
+
 
 
     <div class="popup">
@@ -82,7 +105,9 @@ body{
         The competition is open from now until August 31, 2023. Essays can cover any topic and will be judged on originality, skillful writing, and thoughtful ideas. 
         As you know, writing is so important for developing young minds. Please encourage your child to apply today! Help them find their voice through writing. To register and get more details click on apply
         </p>
-        <a href="https://bit.ly/atycareessaycompetition1" target="blank"  class="b">Apply</a>
+        <div class="image-container" style="margin:auto;">
+           <a href="https://bit.ly/atycareessaycompetition1" target="blank"  class="b">Apply</a>
+       </div>
     </div>
     <!--Script-->
     <script type="text/javascript">
@@ -106,8 +131,6 @@ body{
 
 
 
-
-
 <div class="container mt-4">
 <div class="row  d-flex justify-content-center" style="margin-top:50px;">
     <div class="col-md-8" align="justify">
@@ -121,6 +144,12 @@ body{
     </div>
 </div>
 </div>
+
+
+
+
+
+
 
 
 

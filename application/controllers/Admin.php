@@ -27,6 +27,13 @@ class Admin extends CI_Controller {
        $this->data['page_title'] = "create_prod";
        $this->load->view('layout/index_admin',$this->data); 
      }
+
+     public function manage_prod(){
+        $this->data['title'] = " Manage Product ";
+        $this->data['page_title'] = "manage_prod";
+        $this->load->view('layout/index_admin',$this->data); 
+      }
+     
     
 
 }

@@ -7,6 +7,10 @@ class Home extends CI_Controller {
     public function __construct(){
 			parent::__construct();
 			$this->load->helper(array('form','text','url'));
+			$this->load->library('form_validation');
+			$this->load->library('session');
+			$this->load->database();
+			$this->load->model('home_model');
 		}
 
 
@@ -18,9 +22,37 @@ class Home extends CI_Controller {
 
 
 	public function signup(){
-	  $this->data['title'] = "Signup";
-	  $this->data['page_title'] = "signup";
-	  $this->load->view('layout/index2',$this->data);
+		if($_POST){
+		    $this->form_validation->set_rules('firstname','FirstName','required');
+			$this->form_validation->set_rules('othernames','Othernames','required');
+			$this->form_validation->set_rules('email','Email','required|valid_email');
+			$this->form_validation->set_rules('password','Password','required');
+			$this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required|matches[password]');
+			if($this->form_validation->run()===TRUE){
+			   $data =[
+				'firstname'=>$this->input->post('firstname'),
+				'othernames'=>$this->input->post('othernames'),
+				'email'=>$this->input->post('email'),
+				'password'=>$this->myhash($this->input->post('password'))
+			   ];
+			   $insert = $this->home_model->creatcustomer($data);
+			   if($insert){
+			      $this->session->set_flashdata('success','Customer created successfullly, please Login to start shopping');
+				  return redirect(base_url('home/signup'));
+			   }else{
+			     var_dump("cannot");die;
+			   }
+			}else{
+				$this->data['title'] = "Signup";
+				$this->data['page_title'] = "signup";
+				$this->load->view('layout/index2',$this->data);
+			}
+		}else{
+			$this->data['title'] = "Signup";
+			$this->data['page_title'] = "signup";
+			$this->load->view('layout/index2',$this->data);
+		}
+
 	}
 
 	public function store(){
@@ -41,6 +73,11 @@ class Home extends CI_Controller {
 		$this->load->view('layout/index2',$this->data);
 	  }
 
+
+
+	public function myhash($string){
+		return hash("sha512", $string . config_item("encryption_key"));
+		}
 
 
 
