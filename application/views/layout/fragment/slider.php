@@ -19,7 +19,7 @@
 
   .txt-animate{
     position:relative;
-    bottom:100px;
+    bottom:0px;
   }
  </style>
 
@@ -38,23 +38,26 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="slider-image"></div>
-        <div class="carousel-caption d-none d-md-block">
-          <h1 class="mb-4"> Classsic Collections</h1>
+        <div class="carousel-caption d-none d-md-block" style="margin-bottom:160px;">
+          <h1 class="mb-4"> Classic Collections</h1>
           <p>Some representative placeholder content for the first slide.</p>
+          <button class="btn btn-warning w-25"> Read More </button>
         </div>
       </div>
       <div class="carousel-item">
         <div class="slider-image d-block w-100"></div>
-        <div class="carousel-caption d-none d-md-block">
+        <div class="carousel-caption d-none d-md-block" style="margin-bottom:160px;">
           <h1> Unique Collections</h1>
           <p>Some representative placeholder content for the second slide.</p>
+          <button class="btn btn-warning w-25"><b> Read More </b></button>
         </div>
       </div>
       <div class="carousel-item">
         <div class="slider-image d-block w-100"></div>
-        <div class="carousel-caption d-none d-md-block">
+        <div class="carousel-caption d-none d-md-block" style="margin-bottom:160px;">
           <h1> Made For You</h1>
           <p>Some representative placeholder content for the third slide.</p>
+          <button class="btn btn-warning w-25"> Read More </button>
         </div>
       </div>
     </div>

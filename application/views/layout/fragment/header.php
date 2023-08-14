@@ -17,11 +17,13 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="<?=base_url()?>assets/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
 </head>
 
+
+
+
 <!-- start nav --> 
-<div class="header">
+<div class="header"  id="scrollspyHeading2">
       <nav class="navbar navbar-expand-lg navbar-light bg-light pt-4 pb-4 w-100 bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">J-CLOTH </a>
@@ -44,9 +46,9 @@
                 <a class="nav-link  text-dark" href="<?=base_url('home/store')?>" tabindex="-1" aria-disabled="true"> Store </a>
               </li>
             </ul>
-            <form class="d-flex" style="position:relative;right:10px;">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-dark text-warning w-50" type="submit">Search</button>
+            <form class="d-flex w-50" style="position:relative;right:10px;">
+              <input class="form-control me-2" type="search" placeholder="Search products, brands and categories" aria-label="Search">
+              <button class="btn btn-dark text-warning w-25" type="submit">Search </button>
             </form>
                 <a class="nav-link  text-dark" href="#" tabindex="-1" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#exampleModal"> Login </a>
                 <a class="nav-link  text-dark" href="<?=site_url('home/signup')?>" tabindex="-1" aria-disabled="true"> Signup </a>
@@ -54,7 +56,7 @@
           </div>
         </div>
       </nav>
-</div>
+ </div>
 <!-- end nav --> 
 
 <body>
@@ -102,3 +104,6 @@
    </div>
 
 </div> -->
+
+
+

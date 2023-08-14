@@ -30,15 +30,17 @@
 </style>
 
 <div class="footer">
-        <p class="news-letter text-warning"> News Letter </p>
+        <p class="news-letter text-warning"> News Letter</p>
    <div class="footer-nav">
-     <input type="text" name="" placeholder=" Enter your email address" class="input-footer">
-     <button class="footer-btn bg-dark text-warning"> subscribe </button>
+     <input type="text" name="" placeholder=" Enter your email address" class="input-footer pt-2 pb-2">
+     <button class="footer-btn bg-dark text-warning pt-2 pb-2"> subscribe </button>
   </div>
+
+  <i class="fa fa-facebook w-50"></i>
 </div>
 
 
-
+<a class="nav-link" href="#scrollspyHeading2" style="color:yellow;position:relative;bottom:20px;float:right;"> TOP</a> 
 </body>
 </html>
 

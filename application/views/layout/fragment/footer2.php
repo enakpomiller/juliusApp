@@ -49,8 +49,8 @@
 <div class="footer">
         <p class="news-letter text-warning"> NewsLetter </p>
    <div class="footer-nav">
-     <input type="text" name="subscribe" placeholder=" Enter your email " class="input-footer">
-     <button class="footer-btn bg-dark text-warning"> subscribe </button>
+     <input type="text" name="subscribe" placeholder=" Enter your email " class="input-footer pt-2 pb-2">
+     <button class="footer-btn bg-dark text-warning pt-2 pb-2"> subscribe </button>
   </div>
 </div>
 

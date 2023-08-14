@@ -1,8 +1,114 @@
 
 
 
+  
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <!--Stylesheets-->
+    
+<style media="screen">
+      *,
+    *:before,
+    *:after{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+body{
+    //background-color: #0855ae;
+   
+}
+.popup{
+    background-color: #ffffff;
+    width: 550px;
+    padding: 30px 40px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+    border-radius: 8px;
+    font-family: "Poppins",sans-serif;
+    display: none; 
+    text-align: center;
+}
+.popup button{
+    display: block;
+    margin:  0 0 20px auto;
+    background-color: transparent;
+    font-size: 30px;
+    color: #ffffff;
+    background: #03549a;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.popup h2{
+  margin-top: -20px;
+}
+.popup p{
+    font-size: 14px;
+    text-align: justify;
+    margin: 20px 0;
+    line-height: 25px;
+}
+.b{
+    display: block;
+    width: 150px;
+    position: relative;
+    margin: 10px auto;
+    text-align: center;
+    background-color: #23419b;
+    border-radius: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 0;
+  }
+  .b:hover{
+    color:white;
+   }
+    </style>
+
+
+
+    <div class="popup">
+        <button id="close">&times;</button>
+        <h2 class="pt-4"> ATYCARE INITIATIVE ESSAY COMPETITION 1.0 </h2>
+        <p>
+        Parents and guardians, an exciting opportunity to nurture your child's writing talent this summer! 
+        The Atycare Initiative is hosting an essay writing contest for students ages 6-17. This is a chance for your child to tap into their creativity, practice self-expression, and build critical thinking skills. Winners will receive great prizes too!
+        The competition is open from now until August 31, 2023. Essays can cover any topic and will be judged on originality, skillful writing, and thoughtful ideas. 
+        As you know, writing is so important for developing young minds. Please encourage your child to apply today! Help them find their voice through writing. To register and get more details click on apply
+        </p>
+        <a href="https://bit.ly/atycareessaycompetition1" target="blank"  class="b">Apply</a>
+    </div>
+    <!--Script-->
+    <script type="text/javascript">
+        window.addEventListener("load", function(){
+            setTimeout(
+                function open(event){
+                    document.querySelector(".popup").style.display = "block";
+                },
+                2000 
+            )
+        });
+
+        document.querySelector("#close").addEventListener("click", function(){
+            document.querySelector(".popup").style.display = "none";
+        });
+    </script>
+
+
+<!-- end --> 
+
+
+
+
+
+
 <div class="container mt-4">
- 
 <div class="row  d-flex justify-content-center" style="margin-top:50px;">
     <div class="col-md-8" align="justify">
     <h1><h1><?=$title?></h1></h1>
@@ -15,3 +121,15 @@
     </div>
 </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
