@@ -55,6 +55,23 @@ class Home extends CI_Controller {
 
 	}
 
+	public function custlogin(){
+	    $this->form_validation->set_rules('email','Email','required');
+		$this->form_validation->set_rules('password'.'Password','required');
+		  if($this->form_validation->run()===TRUE){
+				$email = $this->input->post('email');
+				$pass  = $this->myhash($this->input->post('password'));
+				$checkuser = $this->home_model->loginuser($email,$pass);
+					if($checkuser){
+						echo true;
+					}else{
+						echo false;
+					}
+		   }else{
+		     return redirect(base_url('home/signup'));
+		   }
+	 }
+
 	public function store(){
 	  $this->data['title'] = " Store front";
 	  $this->data['page_title'] = "store";

@@ -13,6 +13,7 @@
 
 </style>
 
+
 <head>
   <link rel="stylesheet" href="assets/css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,10 +21,8 @@
 </head>
 
 
-
-
 <!-- start nav --> 
-<div class="header"  id="scrollspyHeading2">
+<div class="header"  id="scrollspyHeading2"> 
       <nav class="navbar navbar-expand-lg navbar-light bg-light pt-4 pb-4 w-100 bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">J-CLOTH </a>
@@ -65,45 +64,81 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-light">
-        <h5 class="modal-title" id="exampleModalLabel"> User Login </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h5 class="modal-title" id="exampleModalLabel"> User Login </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
       <div class="modal-body">
-        <form action="">
-            <div class="form-group">
-              <label> Username </label>
-                <input type="text" required name="username" class="form-control">
-            </div>
-            <div class="form-group">
-              <label> Password  </label>
-                <input type="text" required name="password" class="form-control">
-            </div>
-  
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-dark text-warning">Login</button>
-      </div>         
-    </form>
+        <!-- <form  method="POST">  -->
+              <div class="form-group">
+                <label> Email  </label>
+                  <input type="text"  name="email" id="email" class="form-control">
+              </div>
+              <div class="form-group">
+                <label> Password  </label>
+                  <input type="text"  name="password" id="password" class="form-control">
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button type="submit"  id="butsave"  class="btn btn-dark text-warning">Login</button>
+
+          </div>    
+          
+     
+    <!-- </form> -->
     </div>
   </div>
 </div>
 
- <!-- <div class="header">
-   <div class="logo">
-      J-Venture
-   </div>
-    <div class="nav">
-        <a href="" class="txt b active">  Home  </a>
-        <a href="" class="txt b">  About Us </a>
-        <a href="" class="txt b">  Contact Us  </a>
-        <a href="" class="txt b">  Gallery  </a>
-   </div>
 
-</div> -->
+
+    <script src="<?=base_url()?>assets/js/jquery.js"></script>  
+  
+
+<script> 
+
+ $(document).ready(function() {
+ 	$('#butsave').on('click', function() {
+    const id=4;
+ 		var email = $('#email').val();
+ 		var password = $('#password').val();
+ 		if( email!="" && password!=""){
+ 			$("#butsave").attr("disabled", "disabled");
+ 			$.ajax({
+ 				url: "<?php echo base_url("home/custlogin");?>",
+ 				type: "POST",
+          data: {
+            email: email,
+            password: password
+          },
+ 				cache: false,
+ 				success: function(res){
+          if(res==true){
+            location.reload();
+            $('#spinner-border').html('Data added successfully !'); 
+            window.location = "<?=base_url('home/store/')?>";
+          }else{
+             location.reload();
+             alert('Incorrect Username or Password ');
+          }
+        
+
+ 				 },
+          error: function() { alert("Error posting feed or record already exist."); }
+
+ 			});
+ 		}
+ 		else{
+ 			alert('Please fill all the field !');
+ 		}
+ 	});
+ });
+
+</script>
+
 
 
 

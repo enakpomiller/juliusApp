@@ -11,6 +11,11 @@ class Home_model extends CI_model{
        return $lastid;
     }
 
+    public function loginuser($email,$pass){
+      $query = $this->db->get_where('users',array('email'=>$email,'password'=>$pass));
+      return $query->row();
+    }
+
 
 }
 

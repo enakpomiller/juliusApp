@@ -13,4 +13,5 @@
 
 <div class="slider-image">
   <h1> hello </h1>
+
 </div>
