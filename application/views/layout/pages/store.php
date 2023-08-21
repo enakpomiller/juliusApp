@@ -1,58 +1,31 @@
 
+<style> 
+    #prod-cover:hover{
+              border: 1px solid sandybrown;
+          }
+</style>
 
 
 
 <div class="container mt-4" style="position:relative;top:50px;bottom:50px;">
-
-    <div class="alert alert-success d-flex  alert-dismissible fade show w-50" role="alert" style="margin:auto;">
-        <strong class="text-center"> <?=$this->session->flashdata('success')?> </strong> 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
         <h2 class="text-center">Product Listing </h2>
-        <div class="row d-flex justify-content-center gap-1">
-            <div class="col-md-2 w-25" style="overflow:hidden;">
-                <img src="<?=base_url()?>assets/images/pi3.jpeg" style="height:300px;">
-                <p class="text-center"> shrit </p>
-                    <div class="d-flex justify-content-center">
-                      <a href="" class="btn btn-dark mb-4 w-50 text-warning"> Add To Cart </a>
-                   </div>
-            </div>
-            <div class="col-md-2 w-25" style="overflow:hidden;">
-               <img src="<?=base_url()?>assets/images/pi3.jpeg"  style="height:300px;">
-                 <p class="text-center"> shrit </p>
-                 <div class="d-flex justify-content-center">
-                      <a href="" class="btn btn-dark mb-4 w-50 text-warning"> Add To Cart </a>
-                   </div>
-            </div>
-             <div class="col-md-2 w-25" style="overflow:hidden;">
-                <img src="<?=base_url()?>assets/images/pi3.jpeg"  style="height:300px;">
-               <p class="text-center"> shrit </p>
-               <div class="d-flex justify-content-center">
-                      <a href="" class="btn btn-dark mb-4 w-50 text-warning"> Add To Cart </a>
-                   </div>
-            </div> 
-
-            <div class="col-md-2 w-25" style="overflow:hidden;">
-                <img src="<?=base_url()?>assets/images/pi3.jpeg" style="height:300px;">
-                <p class="text-center"> shrit </p>
-                <div class="d-flex justify-content-center">
-                      <a href="" class="btn btn-dark mb-4 w-50 text-warning"> Add To Cart </a>
-                   </div>
-            </div>
-            <div class="col-md-2 w-25" style="overflow:hidden;">
-                <img src="<?=base_url()?>assets/images/pi3.jpeg"  style="height:300px;">
-                <p class="text-center"> shrit </p>
-                <div class="d-flex justify-content-center">
-                      <a href="" class="btn btn-dark mb-4 w-50 text-warning"> Add To Cart </a>
-                   </div>
-            </div>
-             <div class="col-md-2 w-25" style="overflow:hidden;">
-                <img src="<?=base_url()?>assets/images/pi3.jpeg"  style="height:300px;">
-               <p class="text-center"> shrit </p>
-               <div class="d-flex justify-content-center">
-                      <a href="" class="btn btn-dark mb-4 w-50 text-warning"> Add To Cart </a>
-                   </div>
-            </div>
-   </div>
+    <div class="row">
+    <?php  foreach ($allprod as $prod) {?>
+             <section class="col-lg-3 col-md-6 py-3">
+                        <div class="card" id="prod-cover">
+                            <div class="card-body">
+                            <a href=""> <img   src="<?='http://localhost/tutorial_class/assets/uploads/'.$prod->prod_image?>" style="height:300px;"></a>
+                            </div>
+                            <h5 class="text-center"> <?=$prod->prod_name?>  </h5>
+                            <h5 class="text-center"> <?=number_format(($prod->prod_price),2)?>  </h5>
+                            <a href="" class="text-center bg-dark pt-2 pb-2 text-light" style="text-decoration:none;"> Buy Item </a>
+                        </div>
+             </section>
+            
+    <?php }?>
 </div>
+
+</div>
+
+
+
