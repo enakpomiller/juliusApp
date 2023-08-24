@@ -26,7 +26,7 @@
 <div class="header"  id="scrollspyHeading2"> 
       <nav class="navbar navbar-expand-lg navbar-light bg-light pt-4 pb-4 w-100 bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">J-CLOTH </a>
+          <a class="navbar-brand  text-light" href="" style="padding-left:10px; padding-right:10px;background:#ef5f21;">J-CLOTH</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -49,23 +49,35 @@
             <?php if($this->session->firstname){  ?>
             <form class="d-flex w-50" style="position:relative;right:100px;">
               <input class="form-control me-2" type="search" placeholder="Search products, brands and categories" aria-label="Search">
-              <button class="btn btn-dark text-warning w-25" type="submit">Search </button>
+              <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Search </button>
             </form>
+                   <?php 
+                      $user_id = $this->session->userid;
+                      $this->db->limit(5);
+                      $this->db->order_by('id','DESC');
+                      $cart =  $this->db->get_where('customer_cart',array('user_id'=>$user_id))->result();
+
+                    ?>
         
-                  <div class="dropdown" style="position:relative;right:60px;">
-                      <div class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">   <?= "Hi ".$this->session->firstname." "?> 
+                  <div class="dropdown" style="position:relative;right:50px;">
+                      <div class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">   <?= "Hi ".$this->session->firstname." ".$this->session->othernames?> 
                       </div>
-                    <ul class="dropdown-menu" style="margin-right:200px;" aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      <li>  <a class="nav-link  text-warning bg-dark text-center" onclick="return confirm(' you wish to logout?')" href="<?=site_url('home/logout')?>" tabindex="-1" aria-disabled="true"> Logout </a>   </li>
+                    <ul class="dropdown-menu" style="margin-right:150px;width:195px;" aria-labelledby="dropdownMenuButton1">
+                     <?php if(($cart)>0){ ?>
+                        <?php  foreach($cart as $carts){?>
+                           <li class="dropdown-item"> <center>  <img style="width:30%;" src="<?='http://localhost/tutorial_class/assets/uploads/'.$carts->prod_image?>">  <span style="position:relative;left:10px;"><br><?=$carts->prod_name?>  </span> </center>  </li>
+                         <?php  }?>
+                         <?php }else{?>
+                          <p class="text-center">Cart Empty </p>
+                         <?php }?>
+                      <li>  <a class="nav-link  text-light bg-dark mt-2 mb-2 text-center"  href="<?=site_url('home/viewcart')?>" tabindex="-1" aria-disabled="true"> View Cart </a>  </li>
+                      <li>  <a class="nav-link  text-light text-center" onclick="return confirm(' you wish to logout?')" href="<?=site_url('home/logout')?>" tabindex="-1" aria-disabled="true" style="background:#ef5f21;"> Logout </a>  </li>
                     </ul>
                   </div>
             <?php }else{?>
               <form class="d-flex w-50" style="position:relative;right:100px;">
               <input class="form-control me-2" type="search" placeholder="Search products, brands and categories" aria-label="Search">
-              <button class="btn btn-dark text-warning w-25" type="submit">Search </button>
+              <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Search </button>
             </form>
                <a class="nav-link  text-dark" href="<?=base_url('home/custlogin')?>" tabindex="-1" aria-disabled="true" > Login </a> 
                <!-- <a class="nav-link  text-dark" href="#" tabindex="-1" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#exampleModal"> Login </a>  -->

@@ -30,10 +30,10 @@
 </style>
 
 <div class="footer">
-        <p class="news-letter text-warning"> News Letter</p>
+        <p class="news-letter text-light"> News Letter</p>
    <div class="footer-nav">
      <input type="text" name="" placeholder=" Enter your email address" class="input-footer pt-2 pb-2">
-     <button class="footer-btn bg-dark text-warning pt-2 pb-2"> subscribe </button>
+     <button class="footer-btn bg-anger text-light pt-2 pb-2"> subscribe </button>
   </div>
 
   <i class="fa fa-facebook w-50"></i>

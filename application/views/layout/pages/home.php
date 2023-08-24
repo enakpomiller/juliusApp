@@ -82,17 +82,17 @@
             <div class="col-md-2 w-25" style="overflow:hidden;">
                 <img src="<?=base_url()?>assets/images/pi3.jpeg" class="w-100" style="height:300px;border-radius:5px;">
                 <p class="text-center"> shrit </p>
-                <a href="" class="btn btn-warning d-flex justify-content-center"> Add to cart </a>
+                <a href="" class=" d-flex justify-content-center pt-2 pb-2 text-light" style="background:#ef5f21;"> Add to cart </a>
             </div>
             <div class="col-md-2 w-25" style="overflow:hidden;">
             <img src="<?=base_url()?>assets/images/pi3.jpeg" class="w-100" style="height:300px;border-radius:5px;">
               <p class="text-center"> shrit </p>
-              <a href="" class="btn btn-warning d-flex justify-content-center"> Add to cart </a>
+              <a href="" class=" d-flex justify-content-center pt-2 pb-2 text-light" style="background:#ef5f21;"> Add to cart </a>
             </div>
             <div class="col-md-2 w-25" style="overflow:hidden;">
             <img src="<?=base_url()?>assets/images/pi3.jpeg" class="w-100" style="height:300px;border-radius:5px;">
             <p class="text-center"> shrit </p>
-            <a href="" class="btn btn-warning d-flex justify-content-center"> Add to cart </a>
+            <a href="" class="d-flex justify-content-center pt-2 pb-2 text-light" style="background:#ef5f21;"> Add to cart </a>
             </div>
      </div> 
 

@@ -109,7 +109,7 @@ body{
            <a href="https://bit.ly/atycareessaycompetition1" target="blank"  class="b">Apply</a>
        </div>
     </div>
-    <!--Script-->
+ <!--Script-->
     <script type="text/javascript">
         window.addEventListener("load", function(){
             setTimeout(
@@ -124,8 +124,6 @@ body{
             document.querySelector(".popup").style.display = "none";
         });
     </script>
-
-
 <!-- end --> 
 
 

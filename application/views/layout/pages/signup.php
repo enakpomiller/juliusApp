@@ -35,7 +35,7 @@
                     <input type="text"  name="passconf" value="<?=set_value('confpass')?>" class="form-control w-100" id="exampleInputPassword1">
                     <div class="text-danger"><?=form_error('passconf')?> </div>
                 </div>
-                <button type="submit" class="btn btn-dark w-100 text-warning">Submit</button>
+                <button type="submit" class="btn w-100 text-light pt-2 pb-2 text-light" style="background:#ef5f21;">Submit</button>
          </form>
        </div>
    <div class="col-md-6">

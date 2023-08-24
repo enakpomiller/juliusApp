@@ -15,38 +15,38 @@
                     <input type="text"  name="password" placeholder=" Enter Password" id="password" class="form-control pt-2 pb-2 mt-4" style="width:80%;">
                 </div>
                 <div class="form-group mt-4">
-                    <button type="submit" id="btnsubmit" class="btn btn-dark text-warning" style="width:80%;"> Login </button>
+                    <button type="submit" id="btnsubmit" class="btn  text-light" style="width:80%;background:#ef5f21;"> Login </button>
                 </div>
         </div>
 </div>
 
 
 
-<form>
+<!-- <form>
     <input type="text" id="inputNumber" name="inputNumber">
     <span id="result"></span>
     <?php $msg = 200 ?>
-</form>
+</form> -->
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const inputNumber = document.getElementById('inputNumber');
-        const resultElement = document.getElementById('result');
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const inputNumber = document.getElementById('inputNumber');
+    //     const resultElement = document.getElementById('result');
 
-        inputNumber.addEventListener('input', function() {
-            calculateResult();
-        });
+    //     inputNumber.addEventListener('input', function() {
+    //         calculateResult();
+    //     });
 
-        function calculateResult() {
-            const inputValue = parseFloat(inputNumber.value);
-            if (!isNaN(inputValue)) {
-                const result = inputValue - <?=$msg?>; // Perform your calculation here
-                resultElement.textContent = 'Result: ' + result;
-            } else {
-                resultElement.textContent = ''; // Clear result if input is not a number
-            }
-        }
-    });
+    //     function calculateResult() {
+    //         const inputValue = parseFloat(inputNumber.value);
+    //         if (!isNaN(inputValue)) {
+    //             const result = inputValue - <?=$msg?>; // Perform your calculation here
+    //             resultElement.textContent = 'Result: ' + result;
+    //         } else {
+    //             resultElement.textContent = ''; // Clear result if input is not a number
+    //         }
+    //     }
+    // });
 </script>
 
 

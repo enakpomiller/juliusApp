@@ -47,9 +47,10 @@ class Admin extends CI_Controller {
                 
               }
         // close image upload ---------------------------
+        $prodDetails = $this->input->post('prod_details');
         echo true;
         $this->session->set_flashdata('success',' product uploaded successfully');
-        $insert = $this->home_model->createproduct($prodname,$prodprice,$userfile );
+        $insert = $this->home_model->createproduct($prodname,$prodprice,$userfile,$prodDetails );
         return redirect(base_url('admin/create'));
       }else{
         echo false;

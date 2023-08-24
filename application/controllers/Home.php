@@ -58,6 +58,30 @@ class Home extends CI_Controller {
 
 	}
 
+	public function createcart(){
+	   $userid = $this->session->userdata('userid');
+	   $data = [
+		  'user_id'=>$userid,
+		  'prod_id'=>$this->input->post('prod_id'),
+		  'size'=>$this->input->post('size'),
+		  'color'=>$this->input->post('color'),
+		  'prod_name'=>$this->input->post('prod_name'),
+		  'prod_price'=>$this->input->post('prod_price'),
+		  'qty'=>$this->input->post('quantity'),
+		  'prod_image'=>$this->input->post('prod_image'),
+		  'date'=>date("Y-M-Y")
+	   ];
+	//    echo "<pre>"; print_r($data);die;
+	  $create = $this->home_model->createcart($data);
+	  if($create){
+		$this->session->set_flashdata('success',' Item Added To Cart');
+	    return redirect(base_url('home/buyprod/'.$data['prod_id']));
+	  }else{
+	    echo " cannot create cart ";
+	  }
+	 
+	}
+
 	public function custlogin(){
 		if($_POST){
 		    $this->form_validation->set_rules('email','Email','required');
@@ -111,7 +135,13 @@ class Home extends CI_Controller {
 	  $this->load->view('layout/index2',$this->data);
 	}
 
-
+   public function viewcart(){
+	    $customerid = $this->session->userid;;
+		$this->data['title'] = " View Your Cart";
+		$this->data['getcart'] = $this->home_model->getcustomercart($customerid);
+		$this->data['page_title'] = "viewcart";
+		$this->load->view('layout/index2',$this->data);
+   }
 	public function contact(){
 		$this->data['title'] = " Contact Us";
 		$this->data['page_title'] = "contact";
@@ -128,9 +158,10 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function buyprod(){
+	public function buyprod($id){
 		$this->data['title'] = " Buy Product ";
 		$this->data['page_title'] = "buyprod";
+		$this->data['getsingleprod'] = $this->home_model->GetSingleProd($id);
 		$this->load->view('layout/index2',$this->data);
 	}
 

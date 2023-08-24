@@ -19,6 +19,10 @@
             <label for="exampleInputPassword1" class="form-label"> Price </label>
             <input type="text" name="prodprice" id="prodprice" class="form-control" placeholder=" Product Price">
         </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"> Product Details </label><br>
+              <textarea cols="80" rows="5" name="prod_details"></textarea>
+        </div>
           <button type="submit" id="btnsubmit" class="btn btn-dark"> Create </button>
       </form>
 
