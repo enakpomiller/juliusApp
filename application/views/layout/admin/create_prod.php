@@ -9,19 +9,19 @@
        <?php echo form_open_multipart('admin/create');?>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Product Name</label>
-            <input type="text" name="prodname" id="prodname" class="form-control"  placeholder=" Product Name" aria-describedby="emailHelp">
+            <input type="text" required name="prodname" id="prodname" class="form-control"  placeholder=" Product Name" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Product Image</label>
-            <input type="file" name="userfile" id="userfile" class="form-control" >
+            <input type="file" required name="userfile" id="userfile" class="form-control" >
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label"> Price </label>
-            <input type="text" name="prodprice" id="prodprice" class="form-control" placeholder=" Product Price">
+            <input type="text" required name="prodprice" id="prodprice" class="form-control" placeholder=" Product Price">
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label"> Product Details </label><br>
-              <textarea cols="80" rows="5" name="prod_details"></textarea>
+              <textarea cols="80" required rows="5" name="prod_details"></textarea>
         </div>
           <button type="submit" id="btnsubmit" class="btn btn-dark"> Create </button>
       </form>

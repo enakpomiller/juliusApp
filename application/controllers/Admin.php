@@ -44,30 +44,39 @@ class Admin extends CI_Controller {
               }else{
                  $data = array('upload_data'=>$this->upload->data());
                  $userfile =  $_FILES['userfile']['name'];
-                
+
               }
         // close image upload ---------------------------
         $prodDetails = $this->input->post('prod_details');
-        echo true;
         $this->session->set_flashdata('success',' product uploaded successfully');
-        $insert = $this->home_model->createproduct($prodname,$prodprice,$userfile,$prodDetails );
+        $insert = $this->home_model->createproduct($prodname,$prodprice,$userfile,$prodDetails);
         return redirect(base_url('admin/create'));
       }else{
-        echo false;
         $this->data['title'] = " Create Product ";
         $this->data['page_title'] = "create_prod";
         $this->load->view('layout/index_admin',$this->data);
       }
 
      }
-
+   
      public function manage_prod(){
         $this->data['title'] = " Manage Product ";
+        $this->data['allproduct'] = $this->home_model->GetAllProd('product');
         $this->data['page_title'] = "manage_prod";
         $this->load->view('layout/index_admin',$this->data);
       }
 
+    public function deleteprod($urldata){
+         $this->data['deleteprod'] = $this->home_model->deleteproduct('product',$urldata);
+         return redirect(base_url('admin/manage_prod'));
+    }
 
+    public function updateprod($urldata){
+      $this->data['title'] = " update Product ";
+      $this->data['getoneprod'] = $this->home_model->getoneproduct('product',$urldata);
+      $this->data['page_title'] = "updateprod";
+      $this->load->view('layout/index_admin',$this->data);
+    }
 
 
 

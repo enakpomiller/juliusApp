@@ -6,19 +6,59 @@ class Home extends CI_Controller {
 
     public function __construct(){
 			parent::__construct();
-			$this->load->helper(array('form','text','url'));
+			$this->load->helper(array('form','text','url','cookie'));
 			$this->load->library('form_validation');
-			$this->load->library('session');
+			$this->load->library(array('session'));
+      $this->load->library('cart');
+      $this->load->helper('cookie');
+          //$this->load->library(array('cookie'));
 			$this->load->database();
 			$this->load->model('home_model');
+
 		}
 
 
-	public function index(){
-      $this->data['title'] = " Landing Page";
-      $this->data['page_title'] = "home";
-	  $this->load->view('layout/index',$this->data);
-	}
+    	public function index(){
+              // set_cookie('cookie_name','cookie_value','3600');
+              //set_cookie('cookie_name','firstname','3600');
+          $this->data['title'] = " Landing Page";
+		  $this->data['allprod'] = $this->home_model->gellproduct();
+          $this->data['page_title'] = "home";
+    	  $this->load->view('layout/index',$this->data);
+    	}
+
+      public function about(){
+            $data = array(
+                  'id'      => 'sku_123ABC',
+                  'qty'     => 2,
+                  'price'   => 39.95,
+                  'name'    => 'T-Shirt',
+                  'options' => array('Size' => 'L', 'Color' => 'Red')
+           );
+           $cart_data[] = $data;
+           $item_data = json_encode($cart_data);
+           setcookie('shopping_cart',$item_data, time() + (86400 * 30));
+          //$dim =   $this->cart->insert($data);
+
+
+
+
+    	  $this->data['title'] = " About Us";
+    	  $this->data['page_title'] = "about";
+    	  $this->load->view('layout/index2',$this->data);
+    	}
+
+      public function display_cookie(){
+        // $this->data['title'] = " About Us";
+        // $this->data['displaycookie'] = get_cookie('cookie_name');
+        $this->data['page_title'] = "about";
+        $this->load->view('layout/index2',$this->data);
+      }
+
+      public function delete_cookie(){
+        $this->data['getcookie'] = delete_cookie('cookie_name');
+        return redirect(base_url('home/about'));
+      }
 
 
 	public function signup(){
@@ -78,8 +118,9 @@ class Home extends CI_Controller {
 	    return redirect(base_url('home/buyprod/'.$data['prod_id']));
 	  }else{
 	    echo " cannot create cart ";
+		return redirect(site_url('home/custlogin'));
 	  }
-	 
+
 	}
 
 	public function custlogin(){
@@ -129,19 +170,24 @@ class Home extends CI_Controller {
 
 	}
 
-	public function about(){
-	  $this->data['title'] = " About Us";
-	  $this->data['page_title'] = "about";
-	  $this->load->view('layout/index2',$this->data);
-	}
-
    public function viewcart(){
-	    $customerid = $this->session->userid;;
+	  $customerid = $this->session->userid;;
 		$this->data['title'] = " View Your Cart";
 		$this->data['getcart'] = $this->home_model->getcustomercart($customerid);
 		$this->data['page_title'] = "viewcart";
 		$this->load->view('layout/index2',$this->data);
    }
+
+   public function delete_item($id){
+	  $this->data['delete_item'] = $this->home_model->DeleteItem($id);
+	  if($this->data['delete_item']){
+	     $this->session->set_flashdata('success',' Item deleted successfully');
+		return redirect(base_url('home/viewcart/'.$id));
+	   }else{
+		return redirect(base_url('home/viewcart'));
+	  }
+   }
+
 	public function contact(){
 		$this->data['title'] = " Contact Us";
 		$this->data['page_title'] = "contact";
@@ -169,6 +215,7 @@ class Home extends CI_Controller {
       session_destroy();
 	  redirect(base_url('home'));
     }
+
 	public function myhash($string){
 		return hash("sha512", $string . config_item("encryption_key"));
 		}

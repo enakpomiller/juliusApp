@@ -3,7 +3,7 @@
 <html>
 
 
-  <style> 
+  <style>
   .b:hover{
     color: #000000;
     text-align: center;
@@ -21,9 +21,9 @@
 </head>
 
 
-<!-- start nav --> 
+<!-- start nav -->
 
-<div class="header"  id="scrollspyHeading2"> 
+<div class="header"  id="scrollspyHeading2">
       <nav class="navbar navbar-expand-lg navbar-light bg-light pt-4 pb-4 w-100 bg-light">
         <div class="container-fluid">
           <a class="navbar-brand  text-light" href="" style="padding-left:10px; padding-right:10px;background:#ef5f21;">J-CLOTH</a>
@@ -51,16 +51,16 @@
               <input class="form-control me-2" type="search" placeholder="Search products, brands and categories" aria-label="Search">
               <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Search </button>
             </form>
-                   <?php 
+                   <?php
                       $user_id = $this->session->userid;
                       $this->db->limit(5);
                       $this->db->order_by('id','DESC');
                       $cart =  $this->db->get_where('customer_cart',array('user_id'=>$user_id))->result();
 
                     ?>
-        
+
                   <div class="dropdown" style="position:relative;right:50px;">
-                      <div class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">   <?= "Hi ".$this->session->firstname." ".$this->session->othernames?> 
+                      <div class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">   <?= "Hi ".$this->session->firstname." ".$this->session->othernames?>
                       </div>
                     <ul class="dropdown-menu" style="margin-right:150px;width:195px;" aria-labelledby="dropdownMenuButton1">
                      <?php if(($cart)>0){ ?>
@@ -79,16 +79,16 @@
               <input class="form-control me-2" type="search" placeholder="Search products, brands and categories" aria-label="Search">
               <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Search </button>
             </form>
-               <a class="nav-link  text-dark" href="<?=base_url('home/custlogin')?>" tabindex="-1" aria-disabled="true" > Login </a> 
+               <a class="nav-link  text-dark" href="<?=base_url('home/custlogin')?>" tabindex="-1" aria-disabled="true" > Login </a>
                <!-- <a class="nav-link  text-dark" href="#" tabindex="-1" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#exampleModal"> Login </a>  -->
                 <a class="nav-link  text-dark" href="<?=site_url('home/signup')?>" tabindex="-1" aria-disabled="true"> Signup </a>
             <?php }?>
-           
+
           </div>
         </div>
       </nav>
  </div>
-<!-- end nav --> 
+<!-- end nav -->
 
 <body>
 
@@ -116,9 +116,9 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
             <button type="submit"  id="butsave"  class="btn btn-dark text-warning">Login</button>
-          </div>    
-          
-     
+          </div>
+
+
     <!-- </form> -->
     </div>
   </div>
@@ -127,9 +127,9 @@
 
 
     <!-- <script src="<?=base_url()?>assets/js/jquery.js"></script>   -->
-  
 
-<script> 
+
+<script>
 
   // $(document).ready(function() {
   //   $('#butsave').on('click', function() {
@@ -149,13 +149,13 @@
   //         success: function(res){
   //           if(res==true){
   //             location.reload();
-  //             $('#spinner-border').html('Data added successfully !'); 
+  //             $('#spinner-border').html('Data added successfully !');
   //             window.location = "<?=base_url('home/store/')?>";
   //           }else{
   //             location.reload();
   //             alert('Incorrect Username or Password ');
   //           }
-          
+
 
   //         },
   //           error: function() { alert("Error posting feed or record already exist."); }
@@ -169,7 +169,3 @@
   // });
 
 </script>
-
-
-
-

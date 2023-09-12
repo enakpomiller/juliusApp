@@ -33,7 +33,6 @@ class Home_model extends CI_model{
          'prod_details'=>$prodDetails,
          'prod_price'=>$prodprice
         ];
-    
         $this->db->insert('product',$insert_arr);
         $insertid = $this->db->insert_id();
         return $insertid;
@@ -50,8 +49,14 @@ class Home_model extends CI_model{
   }
 
   public function getcustomercart($customerid){
-    $query = $this->db->get_where('customer_cart',array('user_id'=>$customerid));
-    return $query->result();
+         $query = $this->db->get_where('customer_cart',array('user_id'=>$customerid));
+
+        return $query->result();
+  }
+
+  public function DeleteItem($data){
+    $this->db->where('id',$data);
+    return $this->db->delete('customer_cart');
   }
  public function createcart($data){
     return $this->db->insert('customer_cart',$data);
@@ -59,6 +64,20 @@ class Home_model extends CI_model{
       // return $lastid;
  }
 
+  
+ public function GetAllProd($table){
+   $query = $this->db->get($table);
+   return $query->result();
+ }
 
+ public function deleteproduct($table,$urldata){
+       $this->db->where('id',$urldata);
+       return $this->db->delete($table);
+ }
+ 
+ public function getoneproduct($table,$urldata){
+     $query = $this->db->get_where($table,array('id'=>$urldata));
+     return $query->row();
+ }
 }
 ?>

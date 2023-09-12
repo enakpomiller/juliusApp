@@ -1,5 +1,5 @@
 
-<style> 
+<style>
 
 .font{
   font-familly:sanserif;
@@ -7,7 +7,7 @@
   text-aling:center;
 }
 </style>
-<style> 
+<style>
 .image-container {
     //width: 200px; /* Adjust to your image size */
     height: 200px; /* Adjust to your image size */
@@ -51,11 +51,11 @@
                             <div class="card-body">
                             <h1 class="text-left text-dark  mb-4"> <?=$getsingleprod->prod_name?></h1>
                             <h5 class="text-left text-succes"> <?="&#x20A6;".number_format(($getsingleprod->prod_price),2)?>  </h5>
-                            <h5 class="text-left text-danger" style="text-decoration:straightthrough"> <?="&#x20A6;".number_format(($getsingleprod->prod_price+1000),2)?>  </h5>
+                            <h5 class="text-left text-danger" style="text-decoration:line-through"> <?="&#x20A6;".number_format(($getsingleprod->prod_price+1000),2)?>  </h5>
                                 <input type="hidden" name="prod_name" value="<?=$getsingleprod->prod_name?>">
                                 <input type="hidden" name="prod_price" value="<?=$getsingleprod->prod_price?>">
                                 <hr>
-                                <p class="font"> <?=$getsingleprod->prod_details?>  </p> 
+                                <p class="font"> <?=$getsingleprod->prod_details?>  </p>
                             </div>
                             <div class="row">
                                <div class="col-md-4" style="margin-left:50px;">
@@ -70,7 +70,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <p> 
+                            <p>
                             <div class="row">
                                <div class="col-md-4" style="margin-left:50px;">
                                   Size
@@ -83,7 +83,7 @@
                                      <option>   Etra Large </option>
                                     </select>
                                 </div>
-                                <p> 
+                                <p>
                             </div>
                             <div class="row">
                                <div class="col-md-4" style="margin-left:50px;">
@@ -95,13 +95,12 @@
                                 <div class="col-md-6">
                                     <input type="hidden" name="prod_id" value="<?=$getsingleprod->id?> " class="form-control" placeholder=" Select Quantity">
                                 </div>
-                                <p> 
+                                <p>
                             </div>
-                            <button type="submit"  class="border-0 text-light pt-2 pb-2" onclick="return confirm(' are you sure')"  style="background:#ef5f21;"> Add To Cart </button>
+                               <button type="submit"  class="border-0 text-light pt-2 pb-2" onclick="return confirm(' are you sure')"  style="background:#ef5f21;"> Add To Cart </button>
                         </div>
+                          <button type="submit"  class="border-0 text-light pt-2 pb-2 w-100 mt-2"  style="background:#ef5f21;"><a href="<?=base_url('home/store')?>" class="text-light text-decoration-none"> Continue Shopping </a> </button>
              </section>
       </div>
   </form>
 </div>
-
-
