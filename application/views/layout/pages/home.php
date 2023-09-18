@@ -69,25 +69,27 @@
     padding: 0;
 }
 
-
+.x:hover{
+  border:1px solid #ef5f21;
+}
 </style>
 
 <div class="container">
 
     <!-- Block level -->
     <p class="text-uppercase text-center  fs-2" style="margin-top:100px;"> Shopping online store for you </p>
-    <h5> Product Listing </h5>
+    <p> Product Listing </p>
 
                 <div class="row">
                     <?php  foreach ($allprod as $prod) {?>
                             <section class="col-lg-3 col-md-6 py-3">
-                                <div class="card" id="prod-cover">
+                                <div class="card x" id="prod-cover">
                                     <div class="card-body">
                                     <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img   src="<?='http://localhost/tutorial_class/assets/uploads/'.$prod->prod_image?>" class="w-100" style="height:300px;"></a>
                                     </div>
                                     <h5 class="text-center"> <?=$prod->prod_name?>  </h5>
-                                    <h5 class="text-center"> <?=number_format(($prod->prod_price),2)?>  </h5>
-                                    <a href="" class="text-center  pt-2 pb-2  text-light" style="text-decoration:none;background:#ef5f21;"> Buy Item </a>
+                                    <h5 class="text-center"> <?="&#x20A6;".number_format(($prod->prod_price),2)?>  </h5>
+                                    <a href="<?=base_url('home/buyprod/'.$prod->id)?>" class="text-center  pt-2 pb-2  text-light" style="text-decoration:none;background:#ef5f21;"> Buy Item </a>
                                 </div>
                             </section>
                             
@@ -100,20 +102,20 @@
                  <div id="carouselExampleSlidesOnly" class="carousel slide  mt-4" data-bs-ride="carousel">
                                <div class="carousel-inner">
                                         <div class="carousel-item active text-center">
-                                            <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img     src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[0]->prod_image?>"  style="height:200px;width:20%;"></a>
+                                            <a href="<?=base_url('home/buyprod/'.$allprod[0]->id)?>"> <img     src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[0]->prod_image?>"  style="height:200px;width:20%;"></a>
                                             <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img   src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[1]->prod_image?>"  style="height:200px;width:20%;"></a>
                                             <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[2]->prod_image?>"  style="height:200px;width:20%;"></a>
                                             <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[0]->prod_image?>"  style="height:200px;width:20%;"></a>
                                         </div>
                            
                                            <div class="carousel-item text-center">
-                                           <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[3]->prod_image?>"  style="height:200px;width:20%"></a>
+                                           <a href="<?=base_url('home/buyprod/'.$allprod[3]->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[3]->prod_image?>"  style="height:200px;width:20%"></a>
                                             <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[4]->prod_image?>"  style="height:200px;width:20%"></a>
                                             <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[5]->prod_image?>"  style="height:200px;width:20%"></a>
                                             <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[0]->prod_image?>"  style="height:200px;width:20%"></a>
                                            </div> 
                                            <div class="carousel-item text-center">
-                                           <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img     src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[6]->prod_image?>"  style="height:200px;width:20%"></a>
+                                           <a href="<?=base_url('home/buyprod/'.$allprod[6]->id)?>"> <img     src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[6]->prod_image?>"  style="height:200px;width:20%"></a>
                                             <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[7]->prod_image?>"  style="height:200px;width:20%"></a>
                                             <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[2]->prod_image?>"  style="height:200px;width:20%"></a>
                                             <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[0]->prod_image?>"  style="height:200px;width:20%"></a>

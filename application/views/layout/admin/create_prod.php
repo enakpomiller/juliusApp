@@ -23,6 +23,10 @@
             <label for="exampleInputPassword1" class="form-label"> Product Details </label><br>
               <textarea cols="80" required rows="5" name="prod_details"></textarea>
         </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"> Cartegory</label><br>
+            <input type="text" required name="cartegory" id="prodprice" class="form-control" placeholder=" Cartegorye">
+        </div>
           <button type="submit" id="btnsubmit" class="btn btn-dark"> Create </button>
       </form>
 

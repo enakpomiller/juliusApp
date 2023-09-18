@@ -45,3 +45,5 @@
 </html>
 
 <script src="<?=base_url()?>assets/css/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script src="<?=base_url()?>assets/js/jquery.js"></script>

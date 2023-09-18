@@ -17,6 +17,7 @@
                 <div class="form-group mt-4">
                     <button type="submit" id="btnsubmit" class="btn  text-light" style="width:80%;background:#ef5f21;"> Login </button>
                 </div>
+                <a href="<?=site_url('home/signup')?>" class="text-decoration-none mt-2"> Don't  Have An Account </a>
         </div>
 </div>
 
@@ -76,13 +77,13 @@
 					password:password
 				},
 				cache: false,
-				success: function(res){
+				success: function(res){ 
 					if(res==true){
-						window.location = "<?=base_url('home/store/')?>";
+						window.location = "<?=base_url('home')?>";
 					}
 					else if(res==false){
-                        location.reload();
-					   alert(" Wrong Username Or Password!");
+                          location.reload();
+					    alert(" Wrong Username Or Password!");
 
 					}
 
@@ -90,7 +91,6 @@
 			});
 		}
 		else{
-			// alert('Please fill all the field !');
             $('#error').html('please fill all entries !');
 		}
 	});

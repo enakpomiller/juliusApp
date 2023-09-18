@@ -8,6 +8,8 @@
 
 
 <div class="container  " style="position:relative;top:100px;left:100px;">
+   <div class="text-success text-center"> <?=$_SESSION['success']?>  </div>
+       <?=$this->session->unset_userdata('success')?>
          <table class="table  text-center  table-bordered " style="margin:auto;width:80%;" >
          <thead class="table-light">
             <tr>

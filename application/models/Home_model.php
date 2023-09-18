@@ -26,12 +26,13 @@ class Home_model extends CI_model{
     }
 
 
-    public function createproduct($prodname,$prodprice,$userfile,$prodDetails){
+    public function createproduct($prodname,$prodprice,$userfile,$prodDetails,$category){
        $insert_arr =[
          'prod_name'=>$prodname,
          'prod_image'=>$userfile,
          'prod_details'=>$prodDetails,
-         'prod_price'=>$prodprice
+         'prod_price'=>$prodprice,
+         'category'=>$category
         ];
         $this->db->insert('product',$insert_arr);
         $insertid = $this->db->insert_id();
@@ -79,5 +80,11 @@ class Home_model extends CI_model{
      $query = $this->db->get_where($table,array('id'=>$urldata));
      return $query->row();
  }
+
+   public function updateproduct($table,$data,$urldata){
+     $this->db->where('id',$urldata);
+     return $this->db->update($table,$data);
+   
+   }
 }
 ?>

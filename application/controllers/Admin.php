@@ -48,8 +48,9 @@ class Admin extends CI_Controller {
               }
         // close image upload ---------------------------
         $prodDetails = $this->input->post('prod_details');
+        $category = $this->input->post('cartegory');
         $this->session->set_flashdata('success',' product uploaded successfully');
-        $insert = $this->home_model->createproduct($prodname,$prodprice,$userfile,$prodDetails);
+        $insert = $this->home_model->createproduct($prodname,$prodprice,$userfile,$prodDetails,$category);
         return redirect(base_url('admin/create'));
       }else{
         $this->data['title'] = " Create Product ";
@@ -72,10 +73,43 @@ class Admin extends CI_Controller {
     }
 
     public function updateprod($urldata){
-      $this->data['title'] = " update Product ";
-      $this->data['getoneprod'] = $this->home_model->getoneproduct('product',$urldata);
-      $this->data['page_title'] = "updateprod";
-      $this->load->view('layout/index_admin',$this->data);
+      if($_POST){
+            //image upload------------------------------------
+              $config['upload_path'] = './assets/uploads/';
+              $config['allowed_types'] ='gif|jpg|png|jpeg|GIF|JPEG|PNG|GIF|JPG';
+              $config['max_size'] ='3048';
+              $config['max_width'] = '80000';
+              $config['max_height'] ='60000';
+              $this->load->library('upload',$config);
+                if(!$this->upload->do_upload()){
+                  $errors = array('error'=>$this->upload->display_errors());
+                  $userfile = 'noimage.jpg';
+                }else{
+                  $data = array('upload_data'=>$this->upload->data());
+                  $userfile  =  $_FILES['userfile']['name'];
+  
+                }
+          // close image upload --------------------------
+            $data =[
+               'prod_name'=>$this->input->post('prod_name'),
+               'prod_price'=>$this->input->post('prod_price'),
+               'prod_details'=>$this->input->post('prod_details'),
+               'prod_image'=>$userfile 
+            ];
+          $updateproduct = $this->home_model->updateproduct('product',$data,$urldata);
+          if($updateproduct){
+            $_SESSION['success'] = " Product Updated";
+            return redirect(base_url('admin/manage_prod'));
+          }else{
+             echo false;
+          }
+      }else{
+        $this->data['title'] = " update Product ";
+        $this->data['getoneprod'] = $this->home_model->getoneproduct('product',$urldata);
+        $this->data['page_title'] = "updateprod";
+        $this->load->view('layout/index_admin',$this->data);
+      }
+  
     }
 
 

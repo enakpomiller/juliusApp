@@ -2,17 +2,10 @@
 
 
 <div class="container mt-4" style="position:relative;top:50px;margin-bottom:100px;">
-             
+<?php if($getcart){  ?>
     <p class="text-center"> <?=$this->session->flashdata('success')?> </p>
      <h4 class="" style="position:relative;left:60px;">  <?=ucfirst($this->session->firstname)."'s Cart"?></h4>
-           <?php
-               if(($getcart)>0){
-                  echo $getcart->prod_name ;
-                  }else{
-                  echo " cannot ";
-                  }
-               ?>
-
+     
                <div class="row" style="width:90%;margin:auto;">
                    <div class="col-md-2">
                       <p class="text-center">Product Image  </p>
@@ -40,7 +33,7 @@
 
                 <?php $total_sum=0;?>
                 <?php $grand_sum=0;?>
-    <?php if(($getcart)>0) {?>
+   
         <?php foreach($getcart as $cart){ ?>
                <div class="row" style="width:90%;margin:auto;">
                  <hr>
@@ -84,17 +77,23 @@
                    $_SESSION['num_item'] = $total_sum;
                    $grand_sum += $cart->prod_price * $cart->qty;
                  ?>
-   <?php } ?>
-<?php } ?>
-
-
-       <div class="w-100 text-end" style="">
+         <?php }?>
+         <div class="w-100 text-end" style="">
                 <p>  Number Of Items <?=$total_qty ?> </p>
                 <p> Sub Total   <?="&#x20A6;".number_format(($grand_sum),2)?> </p>
                 <p> Total  <?="&#x20A6;".number_format(($grand_sum),2)?> </p>
-               <button class="pt-2 pb-2 pr-4 pl-4 border-0" style="background:#ef5f21;"> <a href="" class="text-light" style="text-decoration:none"><a href="<?=base_url('home/store')?>" class="text-decoration-none text-light"> Continue Shopping</a></a> </button>
+               <button class="pt-2 pb-2 pr-4 pl-4 border-0" style="background:#ef5f21;"> <a href="" class="text-light" style="text-decoration:none"><a href="<?=base_url('home')?>" class="text-decoration-none text-light"> Continue Shopping</a></a> </button>
                <button class="pt-2 pb-2 pr-4 pl-4 border-0" style="background:#ef5f21;;"> <a href="" class="text-light" style="text-decoration:none"> Check Out Now </a>  </button>
         </div>
+
+
+<?php } else{ ?>
+     <div class="text-center">
+     <img src="<?=base_url('assets/images/cart.png')?>" style="width:20%;">
+     <h1> Cart Is Empty  </h1> 
+</div>
+    
+  <?php } ?>
 
 </div>
 

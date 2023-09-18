@@ -13,18 +13,33 @@
 
 </style>
 
+  <?php 
+     $x = $this->uri->segment(2);
+      if($x =="get_search_product"){
+        $itemname = $this->uri->segment(3);
+
+      } 
+    ?>
 
 <head>
   <link rel="stylesheet" href="assets/css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="<?=base_url()?>assets/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?=base_url()?>assets/css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="<?=base_url()?>assets/js/jquery.js"></script>
+
+  <!-- auto search cdn -->
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script> 
+    <!-- end auto cdn -->  
+
 </head>
 
 
 <!-- start nav -->
 
 <div class="header"  id="scrollspyHeading2">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light pt-4 pb-4 w-100 bg-light">
+      <nav class="navbar navbar-expand-lg  navbar-light bg-light pt-4 pb-4 w-100 bg-light">
         <div class="container-fluid">
           <a class="navbar-brand  text-light" href="" style="padding-left:10px; padding-right:10px;background:#ef5f21;">J-CLOTH</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,10 +62,12 @@
               </li>
             </ul>
             <?php if($this->session->firstname){  ?>
-            <form class="d-flex w-50" style="position:relative;right:100px;">
-              <input class="form-control me-2" type="search" placeholder="Search products, brands and categories" aria-label="Search">
-              <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Search </button>
-            </form>
+                 <form class="d-flex w-50" style="position:relative;right:150px;">
+                      <input  class="typeahead form-control" onkeyup="revenue_request();" id="search_product"  type="text" value="<?=$itemname?>" placeholder="Search products, brands and categories" aria-label="Search">
+                      <!-- <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Searchxxxx </button> -->
+                </form>
+      
+              <!-- <input class="typeahead form-control"  type="text"> -->
                    <?php
                       $user_id = $this->session->userid;
                       $this->db->limit(5);
@@ -58,35 +75,39 @@
                       $cart =  $this->db->get_where('customer_cart',array('user_id'=>$user_id))->result();
 
                     ?>
-
-                  <div class="dropdown" style="position:relative;right:50px;">
-                      <div class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">   <?= "Hi ".$this->session->firstname." ".$this->session->othernames?>
+                  <div class="dropdown" style="position:relative;right:100px;">
+                      <div class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="position:relative;">   <?= "Hi ".$this->session->firstname?>
                       </div>
-                    <ul class="dropdown-menu" style="margin-right:150px;width:195px;" aria-labelledby="dropdownMenuButton1">
-                     <?php if(($cart)>0){ ?>
-                        <?php  foreach($cart as $carts){?>
-                           <li class="dropdown-item"> <center>  <img style="width:30%;" src="<?='http://localhost/tutorial_class/assets/uploads/'.$carts->prod_image?>">  <span style="position:relative;left:10px;"><br><?=$carts->prod_name?>  </span> </center>  </li>
-                         <?php  }?>
+                    <ul class="dropdown-menu" style="m" aria-labelledby="dropdownMenuButton1">
+                     <?php if(($cart)){ ?>
+                           <?php  foreach($cart as $carts){?>
+                             <li class="dropdown-item"> <center>  <img style="width:30%;" src="<?='http://localhost/tutorial_class/assets/uploads/'.$carts->prod_image?>">  <span style="position:relative;left:10px;"><br><?=$carts->prod_name?>  </span> </center>  </li>
+                            <?php  }?>
                          <?php }else{?>
-                          <p class="text-center">Cart Empty </p>
+                          <div class="text-center">
+                              <img src="<?=base_url('assets/images/cart.png')?>" style="width:30%;">
+                              <h5> Cart Is Empty  </h5> 
+                          </div>
                          <?php }?>
-                      <li>  <a class="nav-link  text-light bg-dark mt-2 mb-2 text-center"  href="<?=site_url('home/viewcart')?>" tabindex="-1" aria-disabled="true"> View Cart </a>  </li>
+                      <li>  <a class="nav-link  text-light bg-dark mt-2 mb-2 text-center"  href="<?=site_url('home/viewcart')?>" tabindex="-1" aria-disabled="true"> View Cart </a></li>
+                      <li><a class="nav-link  text-light bg-dark mt-2 mb-2 text-center"  href="<?=site_url('home')?>" tabindex="-1" aria-disabled="true"> Continue shopping </a></li>
                       <li>  <a class="nav-link  text-light text-center" onclick="return confirm(' you wish to logout?')" href="<?=site_url('home/logout')?>" tabindex="-1" aria-disabled="true" style="background:#ef5f21;"> Logout </a>  </li>
                     </ul>
                   </div>
             <?php }else{?>
               <form class="d-flex w-50" style="position:relative;right:100px;">
-              <input class="form-control me-2" type="search" placeholder="Search products, brands and categories" aria-label="Search">
+              <input class="form-control me-2" type="search" placeholder="Search products, brands and categories"  aria-label="Search">
               <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Search </button>
             </form>
                <a class="nav-link  text-dark" href="<?=base_url('home/custlogin')?>" tabindex="-1" aria-disabled="true" > Login </a>
                <!-- <a class="nav-link  text-dark" href="#" tabindex="-1" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#exampleModal"> Login </a>  -->
                 <a class="nav-link  text-dark" href="<?=site_url('home/signup')?>" tabindex="-1" aria-disabled="true"> Signup </a>
             <?php }?>
-
+  
           </div>
         </div>
       </nav>
+      <div id="resultDisplay_revenue" style="position:relative;bottom:30px;"></div>
  </div>
 <!-- end nav -->
 
@@ -168,4 +189,49 @@
   //   });
   // });
 
+</script>
+
+
+
+<script type="text/javascript">
+
+	function revenue_request(){
+		var search = $('#search_product').val();
+    console.log(search);
+		if (search == "") {
+      swal.fire('warning',' please enter a keyword ','warning');
+			//errorMessage('Filter cannot be empty!')
+			return false
+		}
+
+		$('#btn-revenue').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`)
+
+		$.ajax({
+	    type: "POST",
+      url : '<?php echo base_url() ?>' + 'home/search_product',
+	    data: {search: search},
+	    success: function(res){
+
+	      $('#btn-revenue').html(`<i class="fa fa-search text-white me-1 fs-5"></i> Search`);
+
+	      if(res == 400){
+	        // $('.loader').hide();
+					errorMessage('Reference not found!')
+					$('#resultDisplay_revenue').html('');
+					$('#table-mda').dataTable({
+            "ordering": false
+          });
+	      }else{
+	        $('#resultDisplay_revenue').html(res);
+					$('#table-mda').dataTable({
+            "ordering": false
+          });
+	      }
+	    },
+	    error: function(error){
+	      errorMessage('Oops! Something went wrong.')
+        $('#btn-revenue').html(`<i class="fa fa-search text-white me-1 fs-5"></i> Search`);
+	    }
+	  });
+	}
 </script>

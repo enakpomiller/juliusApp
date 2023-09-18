@@ -40,9 +40,6 @@ class Home extends CI_Controller {
            setcookie('shopping_cart',$item_data, time() + (86400 * 30));
           //$dim =   $this->cart->insert($data);
 
-
-
-
     	  $this->data['title'] = " About Us";
     	  $this->data['page_title'] = "about";
     	  $this->load->view('layout/index2',$this->data);
@@ -99,27 +96,34 @@ class Home extends CI_Controller {
 	}
 
 	public function createcart(){
-	   $userid = $this->session->userdata('userid');
-	   $data = [
-		  'user_id'=>$userid,
-		  'prod_id'=>$this->input->post('prod_id'),
-		  'size'=>$this->input->post('size'),
-		  'color'=>$this->input->post('color'),
-		  'prod_name'=>$this->input->post('prod_name'),
-		  'prod_price'=>$this->input->post('prod_price'),
-		  'qty'=>$this->input->post('quantity'),
-		  'prod_image'=>$this->input->post('prod_image'),
-		  'date'=>date("Y-M-Y")
-	   ];
-	//    echo "<pre>"; print_r($data);die;
-	  $create = $this->home_model->createcart($data);
-	  if($create){
-		$this->session->set_flashdata('success',' Item Added To Cart');
-	    return redirect(base_url('home/buyprod/'.$data['prod_id']));
-	  }else{
-	    echo " cannot create cart ";
-		return redirect(site_url('home/custlogin'));
-	  }
+		if($this->session->logged_in){
+			$userid = $this->session->userdata('userid');
+			$data = [
+				'user_id'=>$userid,
+				'prod_id'=>$this->input->post('prod_id'),
+				'size'=>$this->input->post('size'),
+				'color'=>$this->input->post('color'),
+				'prod_name'=>$this->input->post('prod_name'),
+				'prod_price'=>$this->input->post('prod_price'),
+				'qty'=>$this->input->post('quantity'),
+				'prod_image'=>$this->input->post('prod_image'),
+				'date'=>date("Y-M-Y")
+			];
+	       $create = $this->home_model->createcart($data);
+			if($create){
+				echo true;
+				//$this->session->set_flashdata('success',' Item Added To Cart');
+			    //return redirect(base_url('home/buyprod/'.$data['prod_id']));
+			}else{
+				echo false;
+			   //echo " cannot create cart ";
+			return redirect(site_url('home/custlogin'));
+			}
+		}else{
+			echo 400;
+		}
+
+
 
 	}
 
@@ -210,6 +214,29 @@ class Home extends CI_Controller {
 		$this->data['getsingleprod'] = $this->home_model->GetSingleProd($id);
 		$this->load->view('layout/index2',$this->data);
 	}
+
+
+	public function search_product(){
+		$query = $this->input->post('search');
+		$this->db->like('category',$query);
+		$this->data['loadmore'] = $this->db->get('product')->result();
+		if($this->data['loadmore']){
+			$this->load->view('layout/pages/loadmore',$this->data);
+		}else{
+			$this->data['error'] = $query ;
+			$this->load->view('layout/pages/loadmore',$this->data);
+		}
+		//echo json_encode($data);
+	}
+
+  public function get_search_product($urldata){
+        $this->data['title'] = " view product ";
+		$this->data['page_title'] = "view_search";
+		$this->db->like('category',$urldata);
+		$this->data['viewload'] =  $this->db->get('product')->result();
+		$this->load->view('layout/index2',$this->data);
+		
+      }
 
    public function logout(){
       session_destroy();
