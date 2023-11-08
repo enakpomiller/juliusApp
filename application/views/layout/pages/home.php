@@ -109,7 +109,7 @@
                                         </div>
                            
                                            <div class="carousel-item text-center">
-                                           <a href="<?=base_url('home/buyprod/'.$allprod[3]->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[3]->prod_image?>"  style="height:200px;width:20%"></a>
+                                           <a href="<?=base_url('home/buyprod/'.$allprod[3]->id)?>">    <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[3]->prod_image?>"  style="height:200px;width:20%"></a>
                                             <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[4]->prod_image?>"  style="height:200px;width:20%"></a>
                                             <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[5]->prod_image?>"  style="height:200px;width:20%"></a>
                                             <a href="<?=base_url('home/buyprod/'.$prod->id)?>"> <img    src="<?='http://localhost/tutorial_class/assets/uploads/'.$allprod[0]->prod_image?>"  style="height:200px;width:20%"></a>

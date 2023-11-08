@@ -13,12 +13,12 @@
 
 </style>
 
-  <?php 
+  <?php
      $x = $this->uri->segment(2);
       if($x =="get_search_product"){
         $itemname = $this->uri->segment(3);
 
-      } 
+      }
     ?>
 
 <head>
@@ -28,10 +28,9 @@
   <script src="<?=base_url()?>assets/js/jquery.js"></script>
 
   <!-- auto search cdn -->
-  
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script> 
-    <!-- end auto cdn -->  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+    <!-- end auto cdn -->
 
 </head>
 
@@ -61,12 +60,11 @@
                 <a class="nav-link  text-dark" href="<?=base_url('home/store')?>" tabindex="-1" aria-disabled="true"> Store </a>
               </li>
             </ul>
-            <?php if($this->session->firstname){  ?>
-                 <form class="d-flex w-50" style="position:relative;right:150px;">
-                      <input  class="typeahead form-control" onkeyup="revenue_request();" id="search_product"  type="text" value="<?=$itemname?>" placeholder="Search products, brands and categories" aria-label="Search">
+            <?php if($this->session->firstname){ ?>
+                 <form  class="d-flex w-50 " style="position:relative;right:150px;" method="POST">
+                       <input  class="typeahead form-control" onkeyup="revenue_request();" id="search_product"  type="text" value="<?=$itemname?>" placeholder=" Search Product By Name" aria-label="Search">
                       <!-- <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Searchxxxx </button> -->
                 </form>
-      
               <!-- <input class="typeahead form-control"  type="text"> -->
                    <?php
                       $user_id = $this->session->userid;
@@ -75,10 +73,10 @@
                       $cart =  $this->db->get_where('customer_cart',array('user_id'=>$user_id))->result();
 
                     ?>
-                  <div class="dropdown" style="position:relative;right:100px;">
+                  <div class="dropdown " style="position:relative;right:100px;">
                       <div class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="position:relative;">   <?= "Hi ".$this->session->firstname?>
                       </div>
-                    <ul class="dropdown-menu" style="m" aria-labelledby="dropdownMenuButton1">
+                    <ul class="dropdown-menu" style="" aria-labelledby="dropdownMenuButton1">
                      <?php if(($cart)){ ?>
                            <?php  foreach($cart as $carts){?>
                              <li class="dropdown-item"> <center>  <img style="width:30%;" src="<?='http://localhost/tutorial_class/assets/uploads/'.$carts->prod_image?>">  <span style="position:relative;left:10px;"><br><?=$carts->prod_name?>  </span> </center>  </li>
@@ -86,8 +84,8 @@
                          <?php }else{?>
                           <div class="text-center">
                               <img src="<?=base_url('assets/images/cart.png')?>" style="width:30%;">
-                              <h5> Cart Is Empty  </h5> 
-                          </div>
+                              <h5> Cart Is Empty  </h5>
+                              </div>
                          <?php }?>
                       <li>  <a class="nav-link  text-light bg-dark mt-2 mb-2 text-center"  href="<?=site_url('home/viewcart')?>" tabindex="-1" aria-disabled="true"> View Cart </a></li>
                       <li><a class="nav-link  text-light bg-dark mt-2 mb-2 text-center"  href="<?=site_url('home')?>" tabindex="-1" aria-disabled="true"> Continue shopping </a></li>
@@ -95,19 +93,23 @@
                     </ul>
                   </div>
             <?php }else{?>
-              <form class="d-flex w-50" style="position:relative;right:100px;">
-              <input class="form-control me-2" type="search" placeholder="Search products, brands and categories"  aria-label="Search">
+              <form class="d-flex w-50" style="position:relative;right:70px;">
+              <input class="form-control me-2" type="search" onkeyup="revenue_request();" id="search_product"  placeholder="Search products, brands and categories"  aria-label="Search">
               <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Search </button>
             </form>
                <a class="nav-link  text-dark" href="<?=base_url('home/custlogin')?>" tabindex="-1" aria-disabled="true" > Login </a>
                <!-- <a class="nav-link  text-dark" href="#" tabindex="-1" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#exampleModal"> Login </a>  -->
                 <a class="nav-link  text-dark" href="<?=site_url('home/signup')?>" tabindex="-1" aria-disabled="true"> Signup </a>
             <?php }?>
-  
+
           </div>
         </div>
       </nav>
       <div id="resultDisplay_revenue" style="position:relative;bottom:30px;"></div>
+      <center> <div id="btn-revenue mb-4"></div> </center>
+
+
+
  </div>
 <!-- end nav -->
 
@@ -204,15 +206,15 @@
 			return false
 		}
 
-		$('#btn-revenue').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`)
+		   //$('#btn-revenue').html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Loading...`)
+    $('#btn-revenue').html(`<div class="spinner-border" role="status"> <span class="visually-hidden">Loading...</span></div>   `);
 
 		$.ajax({
 	    type: "POST",
       url : '<?php echo base_url() ?>' + 'home/search_product',
 	    data: {search: search},
 	    success: function(res){
-
-	      $('#btn-revenue').html(`<i class="fa fa-search text-white me-1 fs-5"></i> Search`);
+	            $('#btn-revenue').html(`<i class="fa fa-search text-dark me-1 fs-5"></i> Search`);
 
 	      if(res == 400){
 	        // $('.loader').hide();
@@ -230,7 +232,7 @@
 	    },
 	    error: function(error){
 	      errorMessage('Oops! Something went wrong.')
-        $('#btn-revenue').html(`<i class="fa fa-search text-white me-1 fs-5"></i> Search`);
+        $('#btn-revenue').html(`<i class="fa fa-search text-dark me-1 fs-5"></i> Search`);
 	    }
 	  });
 	}

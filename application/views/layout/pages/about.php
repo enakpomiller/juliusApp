@@ -156,7 +156,7 @@ body{
 
 
 
-    <!--Script-->
+    <!--Script popups-->
     <script type="text/javascript">
         window.addEventListener("load", function(){
             setTimeout(

@@ -47,7 +47,7 @@
              <input type="hidden"  name="prod_id" id="id" value="<?=$getsingleprod->id?>">
               <div class="text-success text-center"> <?=$this->session->flashdata('success')?></div>
                  <?=$this->session->unset_userdata('success')?>
-                    
+
                         <div class="card" id="prod-cover">
                             <div class="card-body">
                             <h1 class="text-left text-dark  mb-4"> <?=$getsingleprod->prod_name?></h1>
@@ -132,7 +132,7 @@
                     quantity,
                     color,
                     size,
-                    prod_image 
+                    prod_image
 				},
 				cache: false,
 				success: function(res){

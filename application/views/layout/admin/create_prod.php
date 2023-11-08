@@ -3,7 +3,7 @@
 
 <div class="container  w-50 mt-4" style="position:relative;top:80px;left:70px;">
       <div class="text-success">
-		 <?=$this->session->flashdata('success')?> 
+		 <?=$this->session->flashdata('success')?>
 		 <?=$this->session->unset_userdata('success')?>
 		</div>
        <?php echo form_open_multipart('admin/create');?>

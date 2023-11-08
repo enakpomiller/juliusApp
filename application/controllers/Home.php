@@ -9,8 +9,8 @@ class Home extends CI_Controller {
 			$this->load->helper(array('form','text','url','cookie'));
 			$this->load->library('form_validation');
 			$this->load->library(array('session'));
-      $this->load->library('cart');
-      $this->load->helper('cookie');
+            $this->load->library('cart');
+            $this->load->helper('cookie');
           //$this->load->library(array('cookie'));
 			$this->load->database();
 			$this->load->model('home_model');
@@ -22,9 +22,9 @@ class Home extends CI_Controller {
               // set_cookie('cookie_name','cookie_value','3600');
               //set_cookie('cookie_name','firstname','3600');
           $this->data['title'] = " Landing Page";
-		  $this->data['allprod'] = $this->home_model->gellproduct();
+		      $this->data['allprod'] = $this->home_model->gellproduct();
           $this->data['page_title'] = "home";
-    	  $this->load->view('layout/index',$this->data);
+    	    $this->load->view('layout/index',$this->data);
     	}
 
       public function about(){
@@ -111,6 +111,12 @@ class Home extends CI_Controller {
 			];
 	       $create = $this->home_model->createcart($data);
 			if($create){
+				 $amt_arr = [
+					'cart_id'=>$create,
+					'user_id'=>$userid,
+					 'total_sum'=>$data['prod_price'] * $data['qty']
+				 ];
+				 $this->db->insert('tbl_sum_total',$amt_arr);
 				echo true;
 				//$this->session->set_flashdata('success',' Item Added To Cart');
 			    //return redirect(base_url('home/buyprod/'.$data['prod_id']));
@@ -176,8 +182,10 @@ class Home extends CI_Controller {
 
    public function viewcart(){
 	  $customerid = $this->session->userid;;
-		$this->data['title'] = " View Your Cart";
+	  $this->data['title'] = " View Your Cart";
+		   //$this->data['sumprice'] = $this->home_model->sumprod($customerid);
 		$this->data['getcart'] = $this->home_model->getcustomercart($customerid);
+		$this->data['sum_total'] = $this->home_model->getsum_total('tbl_sum_total', $customerid);
 		$this->data['page_title'] = "viewcart";
 		$this->load->view('layout/index2',$this->data);
    }
@@ -191,6 +199,65 @@ class Home extends CI_Controller {
 		return redirect(base_url('home/viewcart'));
 	  }
    }
+
+    public function checkout(){
+        $customerid = $this->session->userid;;
+		$this->data['getprod'] = $this->home_model->getproddetails($customerid);
+		$this->data['sum_total'] = $this->home_model->getsum_total('tbl_sum_total', $customerid);
+		$_SESSION['amount'] = $this->data['sum_total']->sum;
+         //echo "<pre>"; print_r($this->data['getprod']);die;
+		$this->data['title'] = " Checkout";
+		$this->data['page_title'] = "checkout";
+		$this->load->view('layout/index2',$this->data);
+	}
+ 
+	public function make_payment(){
+		$this->data['title'] = " Make Payment";
+		$this->data['page_title'] = "make_payment";
+		$this->load->view('layout/index2',$this->data);
+	}
+
+	public function payment_status(){
+		$this->data['title'] = " Payment Status";
+		$this->data['page_title'] = "payment_status";
+		$this->load->view('layout/index2',$this->data);
+	}
+
+	public function create_shipment(){
+		$data = [
+			'user_id'=> $this->session->userid,
+			'fname'=>$this->input->post('fname'),
+			'lname'=>$this->input->post('lname'),
+			'email'=>$this->input->post('email'),
+			'address'=>$this->input->post('address'),
+			'country'=>$this->input->post('country'),
+			'date_created'=>date("i:sa")
+		];
+	
+		 $_SESSION['timer'] = $data['date_created'];
+		 $_SESSION['recipient_email'] = $this->input->post('email');
+		 $_SESSION['customer_names'] = $data['fname']." ".$data['lname'];
+		$insert_shiping = $this->home_model->createshipping($data);
+		if($insert_shiping){
+		  echo true;
+		}else{
+		  echo false;
+		}
+
+	  }
+
+
+	 public function print_invoice(){
+		$user_id = $this->session->userid;
+		$this->data['title'] = " Custmer's Invoice ";
+		$this->data['get_user'] = $this->home_model->get_single_customer($user_id);
+		$this->data['cart_details'] = $this->home_model->get_cart_details($user_id);
+		
+		$this->data['sum_total'] = $this->home_model->getsum_total('tbl_sum_total', $user_id);
+		$this->data['getshippings'] = $this->home_model->get_shipping_details($_SESSION['timer']);
+	    $this->data['page_title'] = "print_invoice";
+		$this->load->view('layout/index3',$this->data);
+	  }
 
 	public function contact(){
 		$this->data['title'] = " Contact Us";
@@ -235,7 +302,7 @@ class Home extends CI_Controller {
 		$this->db->like('category',$urldata);
 		$this->data['viewload'] =  $this->db->get('product')->result();
 		$this->load->view('layout/index2',$this->data);
-		
+
       }
 
    public function logout(){

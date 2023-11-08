@@ -59,7 +59,7 @@ class Admin extends CI_Controller {
       }
 
      }
-   
+
      public function manage_prod(){
         $this->data['title'] = " Manage Product ";
         $this->data['allproduct'] = $this->home_model->GetAllProd('product');
@@ -87,14 +87,14 @@ class Admin extends CI_Controller {
                 }else{
                   $data = array('upload_data'=>$this->upload->data());
                   $userfile  =  $_FILES['userfile']['name'];
-  
+
                 }
           // close image upload --------------------------
             $data =[
                'prod_name'=>$this->input->post('prod_name'),
                'prod_price'=>$this->input->post('prod_price'),
                'prod_details'=>$this->input->post('prod_details'),
-               'prod_image'=>$userfile 
+               'prod_image'=>$userfile
             ];
           $updateproduct = $this->home_model->updateproduct('product',$data,$urldata);
           if($updateproduct){
@@ -109,7 +109,7 @@ class Admin extends CI_Controller {
         $this->data['page_title'] = "updateprod";
         $this->load->view('layout/index_admin',$this->data);
       }
-  
+
     }
 
 

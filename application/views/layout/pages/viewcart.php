@@ -7,11 +7,11 @@
      <h4 class="" style="position:relative;left:60px;">  <?=ucfirst($this->session->firstname)."'s Cart"?></h4>
      
                <div class="row" style="width:90%;margin:auto;">
+                   <div class="col-md-2"> 
+                        <p class="text-center"> Product Image  </p>
+                   </div> 
                    <div class="col-md-2">
-                      <p class="text-center">Product Image  </p>
-                   </div>
-                   <div class="col-md-2">
-                      <p class="text-center">Product Name  </p>
+                      <p class="text-center"> Product Name  </p>
                    </div>
                    <div class="col-md-2">
                       <p>Price  </p>
@@ -58,7 +58,8 @@
 
                   <div class="col-md-2">
                         <div class="card mt-4 border-0">
-                        <p> <?="&#x20A6;".number_format(($cart->prod_price * $cart->qty),2)?> </p>
+                          <p> <?="&#x20A6;".number_format(($cart->prod_price * $cart->qty),2)?> </p>
+                    
                         </div>
                    </div>
                    <div class="col">
@@ -75,16 +76,22 @@
                    $total_qty += $cart->qty;
                    $_SESSION['qty'] = $total_qty;
                    $_SESSION['num_item'] = $total_sum;
-                   $grand_sum += $cart->prod_price * $cart->qty;
+                  // $grand_sum  += $cart->prod_price * $cart->qty;
+                   $grand_sum  = $cart->prod_price * $cart->qty;
+                  
                  ?>
+
+                  
          <?php }?>
-         <div class="w-100 text-end" style="">
-                <p>  Number Of Items <?=$total_qty ?> </p>
-                <p> Sub Total   <?="&#x20A6;".number_format(($grand_sum),2)?> </p>
-                <p> Total  <?="&#x20A6;".number_format(($grand_sum),2)?> </p>
-               <button class="pt-2 pb-2 pr-4 pl-4 border-0" style="background:#ef5f21;"> <a href="" class="text-light" style="text-decoration:none"><a href="<?=base_url('home')?>" class="text-decoration-none text-light"> Continue Shopping</a></a> </button>
-               <button class="pt-2 pb-2 pr-4 pl-4 border-0" style="background:#ef5f21;;"> <a href="" class="text-light" style="text-decoration:none"> Check Out Now </a>  </button>
-        </div>
+               <div class="w-100 text-end" style="">
+                     <p>  Number Of Items <?=$total_qty?> </p>
+                      <?/*
+
+                        */?>
+                     <p>  TOTAL: <?="&#x20A6;".number_format($sum_total->sum)?> </p> 
+                     <button class="pt-2 pb-2 pr-4 pl-4 border-0" style="background:#ef5f21;"> <a href="" class="text-light" style="text-decoration:none"><a href="<?=base_url('home')?>" class="text-decoration-none text-light"> Continue Shopping</a></a> </button>
+                     <button class="pt-2 pb-2 pr-4 pl-4 border-0" style="background:#ef5f21;;"> <a href="<?=base_url('home/checkout')?>" class="text-light" style="text-decoration:none"> Check Out Now </a>  </button>
+            </div>
 
 
 <?php } else{ ?>
