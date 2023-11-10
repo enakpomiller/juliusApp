@@ -18,7 +18,7 @@ class Admin extends CI_Controller {
          $this->data['title'] = "dashboard";
          //$this->data['page_title'] ="dashboard";
          $this->load->view('layout/index_admin');
-    }
+     }
 
     public function dashboard(){
         $this->data['title'] = "dashboard";

@@ -15,6 +15,7 @@ class Home extends CI_Controller {
 			$this->load->database();
 			$this->load->model('home_model');
 
+
 		}
 
 
@@ -248,15 +249,20 @@ class Home extends CI_Controller {
 
 
 	 public function print_invoice(){
-		$user_id = $this->session->userid;
-		$this->data['title'] = " Custmer's Invoice ";
-		$this->data['get_user'] = $this->home_model->get_single_customer($user_id);
-		$this->data['cart_details'] = $this->home_model->get_cart_details($user_id);
-		
-		$this->data['sum_total'] = $this->home_model->getsum_total('tbl_sum_total', $user_id);
-		$this->data['getshippings'] = $this->home_model->get_shipping_details($_SESSION['timer']);
-	    $this->data['page_title'] = "print_invoice";
-		$this->load->view('layout/index3',$this->data);
+		if($this->session->logged_in){
+			$user_id = $this->session->userid;
+			$this->data['title'] = " Customer's Invoice ";
+			$this->data['get_user'] = $this->home_model->get_single_customer($user_id);
+			$this->data['cart_details'] = $this->home_model->get_cart_details($user_id);
+			
+			$this->data['sum_total'] = $this->home_model->getsum_total('tbl_sum_total', $user_id);
+			$this->data['getshippings'] = $this->home_model->get_shipping_details($_SESSION['timer']);
+			$this->data['page_title'] = "print_invoice";
+			$this->load->view('layout/index3',$this->data);
+		}else{
+		 return redirect(base_url('home/custlogin'));
+		}
+
 	  }
 
 	public function contact(){

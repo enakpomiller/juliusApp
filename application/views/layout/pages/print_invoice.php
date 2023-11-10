@@ -40,16 +40,17 @@
        
            <?php if($cart_details){ ?>
                <center> <img src="<?=base_url('assets/images/paid.avif')?>"  style="width:30%;"></center>
-              <h4 class="text-center mt-4 font"> cart items paid for  </h4>
+              <h4 class="text-center mt-4 font"> 'cart items paid for  </h4>
               <p class="text-center"> on </p> 
-              <p class="text-center">  <?php echo date('D-M-Y h:I:sa')  ;?> </p>
+              <p class="text-center">  <?php echo date('D-M-Y h:I:sa')." '"  ;?> </p>
               <div style="margin-left:20px;margin-right:20px;">
                     <table class="table mb-4">
-                        <thead>
+                        <thead class="bg-light">
                             <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">s/n</th>
                             <th scope="col">image</th>
                             <th scope="col">name</th>
+                            <th scope="col"> Quantity </th>
                             <th scope="col" class="text-center">amount</th>
                             </tr>
                         </thead>
@@ -59,16 +60,18 @@
                             <th scope="row"><?=$counter++?></th>
                             <td class=" w-25"><img src="<?=base_url('assets/uploads/'.$cart->prod_image)?>" style="width:18%;"></td>
                             <td><?=$cart->prod_name?></td>
+                            <td><?=$cart->qty?></td>
                             <td class="text-center text-success"><?="&#x20A6;".($cart->prod_price)?></td>
                             </tr>
                             <?php } ?>
                         </tbody>
                 </table>
-                <label class="text-danger" style="float:right;">  Total:<?=number_format(($sum_total->sum),2) ?> </label>
+                <label class="text-dark" style="float:right;"><strong>  Total:<?="&#x20A6;".number_format(($sum_total->sum),2) ?> </strong> </label>
                
                 <br> 
-                <a href="<?=base_url('home')?>" class="btn btn-dark mt-2 mb-2"> Home </a>
-                <a href="" class="btn btn-success mt-2 mb-2" style="float:right;"> Print </a>
+                <p class="text-center font"> Payment was successful, please check your email </p> 
+                <a href="<?=base_url('home')?>" class="btn btn-dark mt-2 mb-4"> Home </a>
+                <a href="" class="btn btn-success mt-2 mb-4" style="float:right;"> Print </a>
              </div>
              <?php }else{?>
                <p>  No cart items  </p>
@@ -79,4 +82,4 @@
 
 
 
-        <script src="<?=base_url()?>assets/js/jquery.js"></script>
+<script src="<?=base_url()?>assets/js/jquery.js"></script>

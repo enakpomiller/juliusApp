@@ -30,16 +30,27 @@ body {
 </nav>
 
  <div class="container" style="margin-top:100px;">
+        <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <p class="text-center"> Amount  </p> 
+                </div>
+                <div class="col-md-4">
+                    <p class="text-center"> Payment Method </p> 
+                </div>
+        </div>
 
         <div class="row justify-content-center">
             <div class="col-md-4">
+                <hr>
               <p class="text-center"> <?="&#x20A6;".number_format(($_SESSION['amount']),2)?> </p> 
+           </div>
+         <div class="col-md-4">
+              <!-- <button type="button" class="" id="start-payment-button" onclick="makePayment()">Pay with flutter wave </button> -->
+              <hr>
+              <input type="radio" style="position:relative;left:50px;" id="start-payment-button" onclick="makePayment()"><label style="position:relative;right:40px;"> Flutter Wave </label>  
         </div>
-        <div class="col-md-4">
-            <button type="button" class="" id="start-payment-button" onclick="makePayment()">Pay with flutter wave </button>
-    </div>
-  
 </div>
+
 </div>
 
 
@@ -58,7 +69,7 @@ body {
       currency: "NGN",
       payment_options: "card, banktransfer, ussd",
     //   redirect_url: "https://glaciers.titanic.com/handle-flutterwave-payment",
-    redirect_url: "<?=base_url('home/payment_status')?>",
+    redirect_url: "<?=base_url('home/print_invoice')?>",
       meta: {
         consumer_id: 23,
         consumer_mac: "92a3-912ba-1192a",
