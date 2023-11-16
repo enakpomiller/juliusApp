@@ -15,9 +15,9 @@
     <!-- google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <!-- plugin stylesheets -->
-    <link rel="stylesheet" type="text/css" href="assets2/css/vendors.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets2/css/vendors.css" />
     <!-- app style -->
-    <link rel="stylesheet" type="text/css" href="assets2/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets2/css/style.css" />
 </head>
 
 
@@ -31,7 +31,7 @@
             <div class="loader">
                 <div class="h-100 d-flex justify-content-center">
                     <div class="align-self-center">
-                        <img src="assets2/img/loader/loader.svg" alt="loader">
+                        <img src="<?=base_url()?>assets2/img/loader/loader.svg" alt="loader">
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                         <a href="javascript:void:(0)" class="mobile-toggle"><i class="ti ti-align-right"></i></a>
                         <a class="navbar-brand mt-4" href="<?=site_url('admin2')?>">
                             <!-- <img src="assets2/img/logo.png" class="img-fluid logo-desktop" alt="logo" /> -->
-                            <img src="assets2/img/logo-icon.png" class="img-fluid logo-mobile" alt="logo" />
+                            <img src="<?=base_url()?>assets2/img/logo-icon.png" class="img-fluid logo-mobile" alt="logo" />
 
                             <p class="pl-4 text-light"> <?=(strtoupper($this->session->usertype))?> </p>
                         </a>
@@ -205,7 +205,7 @@
                                                         <a href="javascript:void(0)">
                                                             <div class="notification d-flex flex-row align-items-center">
                                                                 <div class="notify-icon bg-img align-self-center">
-                                                                    <img class="img-fluid" src="assets2/img/avtar/03.jpg" alt="user3">
+                                                                    <img class="img-fluid" src="<?=base_url()?>assets2/img/avtar/03.jpg" alt="user3">
                                                                 </div>
                                                                 <div class="notify-message">
                                                                     <p class="font-weight-bold">Brianing Leyon</p>
@@ -218,7 +218,7 @@
                                                         <a href="javascript:void(0)">
                                                             <div class="notification d-flex flex-row align-items-center">
                                                                 <div class="notify-icon bg-img align-self-center">
-                                                                    <img class="img-fluid" src="assets2/img/avtar/01.jpg" alt="user">
+                                                                    <img class="img-fluid" src="<?=base_url()?>assets2/img/avtar/01.jpg" alt="user">
                                                                 </div>
                                                                 <div class="notify-message">
                                                                     <p class="font-weight-bold">Jimmyimg Leyon</p>
@@ -231,7 +231,7 @@
                                                         <a href="javascript:void(0)">
                                                             <div class="notification d-flex flex-row align-items-center">
                                                                 <div class="notify-icon bg-img align-self-center">
-                                                                    <img class="img-fluid" src="assets2/img/avtar/02.jpg" alt="user2">
+                                                                    <img class="img-fluid" src="<?=base_url()?>assets2/img/avtar/02.jpg" alt="user2">
                                                                 </div>
                                                                 <div class="notify-message">
                                                                     <p class="font-weight-bold">Brainjon Leyon</p>
@@ -244,7 +244,7 @@
                                                         <a href="javascript:void(0)">
                                                             <div class="notification d-flex flex-row align-items-center">
                                                                 <div class="notify-icon bg-img align-self-center">
-                                                                    <img class="img-fluid" src="assets2/img/avtar/04.jpg" alt="user4">
+                                                                    <img class="img-fluid" src="<?=base_url()?>assets2/img/avtar/04.jpg" alt="user4">
                                                                 </div>
                                                                 <div class="notify-message">
                                                                     <p class="font-weight-bold">Smithmin Leyon</p>
@@ -257,7 +257,7 @@
                                                         <a href="javascript:void(0)">
                                                             <div class="notification d-flex flex-row align-items-center">
                                                                 <div class="notify-icon bg-img align-self-center">
-                                                                    <img class="img-fluid" src="assets2/img/avtar/05.jpg" alt="user5">
+                                                                    <img class="img-fluid" src="<?=base_url()?>assets2/img/avtar/05.jpg" alt="user5">
                                                                 </div>
                                                                 <div class="notify-message">
                                                                     <p class="font-weight-bold">Jennyns Leyon</p>
@@ -270,7 +270,7 @@
                                                         <a href="javascript:void(0)">
                                                             <div class="notification d-flex flex-row align-items-center">
                                                                 <div class="notify-icon bg-img align-self-center">
-                                                                    <img class="img-fluid" src="assets2/img/avtar/06.jpg" alt="user6">
+                                                                    <img class="img-fluid" src="<?=base_url()?>assets2/img/avtar/06.jpg" alt="user6">
                                                                 </div>
                                                                 <div class="notify-message">
                                                                     <p class="font-weight-bold">Demian Leyon</p>
@@ -407,7 +407,7 @@
                                 </li>
                                 <li class="nav-item dropdown user-profile">
                                     <a href="javascript:void(0)" class="nav-link dropdown-toggle " id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="assets2/img/avtar/02.jpg" alt="avtar-img">
+                                        <img src="<?=base_url()?>assets2/img/avtar/02.jpg" alt="avtar-img">
                                         <span class="bg-success user-status"></span>
                                     </a>
                                     <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
@@ -431,7 +431,7 @@
                                             <a class="dropdown-item d-flex nav-link" href="javascript:void(0)">
                                                 <i class=" ti ti-settings pr-2 text-info"></i> Settings
                                             </a>
-                                            <a class="dropdown-item d-flex nav-link" href="<?=base_url('/')?>">
+                                            <a class="dropdown-item d-flex nav-link" href="<?=base_url('sellers/viewproducts')?>">
                                                 <i class="fa fa-compass pr-2 text-warning"></i> View Products </a>
 
                                                 <a class="dropdown-item d-flex nav-link" href="<?=base_url('seller_login/logout')?>">

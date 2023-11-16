@@ -1,3 +1,4 @@
+
             <!-- end app-header -->
             <!-- begin app-container -->
             <div class="app-container">
@@ -11,7 +12,7 @@
                         <ul class="metismenu " id="sidebarNav">
                             <li class="nav-static-title">Personal</li>
                             <li class="active">
-                                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                <a class="has-arrow" href="<?=base_url('admin2')?>" aria-expanded="false">
                                     <i class="nav-icon ti ti-rocket"></i>
                                     <span class="nav-title">Dashboards</span>
                                     <span class="nav-label label label-danger">9</span>

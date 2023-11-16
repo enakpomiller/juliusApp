@@ -99,17 +99,17 @@ class Home extends CI_Controller {
 	public function createcart(){
 		if($this->session->logged_in){
 			$userid = $this->session->userdata('userid');
-			$data = [
-				'user_id'=>$userid,
-				'prod_id'=>$this->input->post('prod_id'),
-				'size'=>$this->input->post('size'),
-				'color'=>$this->input->post('color'),
-				'prod_name'=>$this->input->post('prod_name'),
-				'prod_price'=>$this->input->post('prod_price'),
-				'qty'=>$this->input->post('quantity'),
-				'prod_image'=>$this->input->post('prod_image'),
-				'date'=>date("Y-M-Y")
-			];
+				$data = [
+					'user_id'=>$userid,
+					'prod_id'=>$this->input->post('prod_id'),
+					'size'=>$this->input->post('size'),
+					'color'=>$this->input->post('color'),
+					'prod_name'=>$this->input->post('prod_name'),
+					'prod_price'=>$this->input->post('prod_price'),
+					'qty'=>$this->input->post('quantity'),
+					'prod_image'=>$this->input->post('prod_image'),
+					'date'=>date("Y-M-Y")
+				];
 	       $create = $this->home_model->createcart($data);
 			if($create){
 				 $amt_arr = [
@@ -118,7 +118,7 @@ class Home extends CI_Controller {
 					 'total_sum'=>$data['prod_price'] * $data['qty']
 				 ];
 				 $this->db->insert('tbl_sum_total',$amt_arr);
-				echo true;
+				 echo true;
 				//$this->session->set_flashdata('success',' Item Added To Cart');
 			    //return redirect(base_url('home/buyprod/'.$data['prod_id']));
 			}else{

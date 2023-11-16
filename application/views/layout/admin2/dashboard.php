@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-6 col-xxl-3 m-b-30">
-                                <div class="card card-statistics h-100 m-b-0 bg-info">
+                                <div class="card card-statistics h-100 m-b-0">
                                     <div class="card-body">
                                         <h2 class="text-white mb-0">$24,500</h2>
                                         <p class="text-white">Total Earnings</p>
@@ -149,7 +149,7 @@
                                             <div class="col-12 col-xs-3">
                                                 <span>Leased: <b>$12,489</b></span>
                                                 <div class="progress my-3" style="height: 4px;">
-                                                    <div class="progress-bar bg-info" role="progressbar" style="width: 55%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div class="progress-bar" role="progressbar" style="width: 55%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                         </div>
