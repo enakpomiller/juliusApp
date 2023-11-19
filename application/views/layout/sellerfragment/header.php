@@ -407,7 +407,7 @@
                                 </li>
                                 <li class="nav-item dropdown user-profile">
                                     <a href="javascript:void(0)" class="nav-link dropdown-toggle " id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="<?=base_url()?>assets2/img/avtar/02.jpg" alt="avtar-img">
+                                        <img src="<?=base_url('assets/sellers_uploads/'.$this->session->userfile)?>" alt="avtar-img">
                                         <span class="bg-success user-status"></span>
                                     </a>
                                     <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
@@ -422,7 +422,7 @@
                                             </div>
                                         </div>
                                         <div class="p-4">
-                                            <a class="dropdown-item d-flex nav-link" href="javascript:void(0)">
+                                            <a class="dropdown-item d-flex nav-link" href="<?=base_url('sellers/seller_profile')?>">
                                                 <i class="fa fa-user pr-2 text-success"></i> Profile</a>
                                             <a class="dropdown-item d-flex nav-link" href="javascript:void(0)">
                                                 <i class="fa fa-envelope pr-2 text-primary"></i> Inbox

@@ -8,7 +8,7 @@
                             <!-- begin page title -->
                             <div class="d-block d-sm-flex flex-nowrap align-items-center">
                                 <div class="page-title mb-2 mb-sm-0">
-                                    <h1> <?=$title?> </h1>
+                                    <h1 style="position:relative;left:40px;"> <?=$title?> </h1>
                                 </div>
                                 <div class="ml-auto d-flex align-items-center">
                                     <nav>
@@ -30,13 +30,13 @@
                     <!-- end row -->
                     <!-- start real estate contant -->
        
-                    <div class="row mt-4">
+                           <div class="row mt-4">
                               <div class="card col-md-5" style="position:relative;left:50px;">
                                  <div class="row pr-2 pl-2">
                                     <?php $counter =1; foreach($prod_images as $img){ ?>
-                                      <div class="col-md-4 border-light mt-5">
+                                      <div class="col-md-4 border-light mt-5 pr-2 pl-2">
                                         <center> 
-                                            <img src="<?=base_url('assets/sellers_uploads/'.json_decode($img->file_name))?>" style="width:60%;"> 
+                                            <img src="<?=base_url('assets/sellers_uploads/'.json_decode($img->file_name))?>" style="width:90%;height:100px;"> 
                                              <p> <?=$counter++?> </p> 
                                         </center>
                                       </div>     
@@ -61,7 +61,7 @@
                                             <td> <?=$sellersprod->prod_name?> </td>
                                             <td> <?="&#8358;".number_format(($sellersprod->prod_price),2)?> </td>
                                             <td align="center"> 
-                                               <button class="btn btn-danger pt-2 pb-2">  <i class="fa fa-trash"></i> Delete </button>
+                                            <a href="<?=base_url('sellers/deletesellersprod/'.$sellersprod->sell_prod_id)?>" class="btn btn-danger pt-2 pb-2" onclick="return confirm(' Are you sure you want to delete?')">  <i class="fa fa-book"></i> Delete </a>
                                                <a href="<?=base_url('sellers/editproduct/'.$sellersprod->sell_prod_id)?>" class="btn btn-primary pt-2 pb-2">  <i class="fa fa-book"></i> Edit </a>
                                             </td>
                                             </tr>

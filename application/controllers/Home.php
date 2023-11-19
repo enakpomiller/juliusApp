@@ -271,6 +271,25 @@ class Home extends CI_Controller {
 		$this->load->view('layout/index2',$this->data);
 	  }
 
+    public function get_location(){
+        $location = $this->input->post('get_location');
+         $find_location =  $this->db->get_where('tbl_products',array('location'=>$location))->row()->location;
+         if($find_location){
+            echo true;
+         }else{
+          echo false;
+        }
+        
+     }
+
+   public function search_location($location){
+		$this->data['title'] = " Contact Us";
+		$this->data['get_prodby_location'] = $this->home_model->get_prod_by_location($location);
+		$this->data['page_title'] = "load_location";
+		$this->load->view('layout/index2',$this->data);
+	  
+   }
+
 
 	public function check_email_exists($email){
 		$this->form_validation->set_message('check_email_exists','This email  '.$email.'already exist');

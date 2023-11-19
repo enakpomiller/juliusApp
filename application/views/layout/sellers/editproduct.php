@@ -8,16 +8,16 @@
                             <!-- begin page title -->
                             <div class="d-block d-sm-flex flex-nowrap align-items-center">
                                 <div class="page-title mb-2 mb-sm-0">
-                                    <h1> <?=$title?> </h1>
+                                <h1 style="position:relative;left:40px;"> <?=$title?> </h1>
                                 </div>
                                 <div class="ml-auto d-flex align-items-center">
                                     <nav>
                                         <ol class="breadcrumb p-0 m-b-0">
                                             <li class="breadcrumb-item">
-                                                <a href="index.html"><i class="ti ti-home"></i></a>
+                                                <a href="<?=base_url('sellers/viewproducts')?>"><i class="ti ti-home"></i></a>
                                             </li>
                                             <li class="breadcrumb-item">
-                                                Dashboard
+                                            <a href="<?=base_url('sellers/viewproducts')?>">  Dashboard </a>
                                             </li>
                                             <li class="breadcrumb-item active text-primary" aria-current="page">Real Estate</li>
                                         </ol>
@@ -32,14 +32,16 @@
        
                     <div class="row mt-4">
                               <div class="card col-md-5" style="position:relative;left:50px;">
-                              <form action="<?=base_url('sellers/update_sellers')?>" method="POST">
+                              <?php echo form_open_multipart('sellers/update_sellers'); ?>
                                  <div class="row pr-2 pl-2 justify-content-center mt-4">
                                     <?php if($getsinglerec) {  ?>
+                                        <input type="hidden" name="id" value="<?=$getsinglerec->sell_prod_id?>">
+                           
                                         <div class="form-group w-70 mt-4 ml-4">
-                                           <input type="" name="" class="form-control" value="<?=$getsinglerec->prod_name?>">
+                                           <input type="" name="prod_name" class="form-control" value="<?=$getsinglerec->prod_name?>">
                                        </div>
                                        <div class="form-group w-70  ml-4">
-                                           <input type="" name="" class="form-control" value="<?=$getsinglerec->prod_price?>">
+                                           <input type="" name="prod_price" class="form-control" value="<?=$getsinglerec->prod_price?>">
                                        </div>
                                     <?php } ?>
 
@@ -47,12 +49,12 @@
                                 </div> 
                                 <div class="card col-md-6 ml-3" style="position:relative;left:50px;">
                                     
-                               <!-- image frame --> 
+                                <!-- image frame --> 
                                     <div id="image-holder" class="image-responsive" style="height: 200px; width: 170px; border: 2px solid grey; border-radius:8px;  padding:2px;margin:auto;margin-top:20px;">
                                         <img id="imagePreview" style="width:100%;height:192px;" src="<?=base_url('assets/sellers_uploads/'.json_decode($get_img))?>" alt="Selected Image" style="max-width: 1700px; display: none;">
                                     </div>
                                         <label class="btn btn-primary btn-file btn-md" style="width: 170px;margin-left:208px;margin-top:5px;">
-                                        <input id="imageInput"  type="file"  name="userfile" onchange="displayImage()" accept="image/*">
+                                        <input id="imageInput"  type="file" required  name="userfile" onchange="displayImage()" accept="image/*">
                                     </label>
                                 <!-- close image frame --> 
                                       <div class="form-group w-70  ml-4">

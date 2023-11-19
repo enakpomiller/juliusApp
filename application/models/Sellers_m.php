@@ -27,6 +27,17 @@
     return $insert?true:false;
 }
 
+public function create_sellers($fname,$lname,$uname,$type,$pass,$userfile){
+     $data_arr = [
+        'firstname'=>$fname,
+        'lastname'=>$lname,
+        'username'=>$uname,
+        'type'=>$type,
+        'password'=>$pass,
+        'userfile'=>$userfile
+     ];
+     return  $this->db->insert('tbl_sellers',$data_arr);
+}
 
 // public function get_all_sellers_prod(){ 
 //   $this->db->select('*');
@@ -59,6 +70,42 @@ public function get_singlerec($data){
   return $query->row();
  }
 
+public function updatesellers_products($sell_prod_id ,$prodname,$prodprice,$userfile){
+    $data_arr =[
+        'prod_name'=>$prodname,
+        'prod_price'=>$prodprice,
+      ];
+      $this->db->where('sell_prod_id',$sell_prod_id);
+      $update =  $this->db->update($this->table,$data_arr);
+      if($update){
+         $data = array('file_name'=>json_encode($userfile));
+        $this->db->where('prod_id',$sell_prod_id);
+        return   $this->db->update('tbl_products',$data);
+      }
+ 
+}
+
+
+ public function deletesellersProducts($data){
+      $this->db->where('sell_prod_id',$data);
+      $dle = $this->db->delete($this->table);
+      if($dle){
+        $this->db->where('prod_id',$data);
+        return  $this->db->delete('tbl_products');
+      }
+
+ }
+
+ public function getsellersprofile($userid){
+    $query = $this->db->get_where('tbl_sellers',array('id'=>$userid));
+     return $query->row();
+  
+}
+
+ public function sellers_location($userid){
+    $query = $this->db->get_where('tbl_products',array('seller_id'=>$userid));
+    return $query->row();
+ }
 
 
 

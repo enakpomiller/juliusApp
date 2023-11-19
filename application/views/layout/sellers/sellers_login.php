@@ -57,12 +57,7 @@
 							<span class="li-text">
 								here, or some icons: 
 							</span> 
-							<span class="li-social">
-								<a href="https://www.facebook.com/pages/Azmindcom/196582707093191" target="_blank"><i class="fa fa-facebook"></i></a> 
-								<a href="https://twitter.com/anli_zaimi" target="_blank"><i class="fa fa-twitter"></i></a> 
-								<a href="https://plus.google.com/+AnliZaimi_azmind" target="_blank"><i class="fa fa-google-plus"></i></a> 
-								<a href="https://github.com/AZMIND" target="_blank"><i class="fa fa-github"></i></a>
-							</span>
+					
 						</li>
 					</ul>
 				</div>
@@ -84,13 +79,17 @@
                 
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
-                    	<form role="form" class="f1">
+                    	<form role="form" class="f1" enctype="multipart/form-data">
+                            <div>
+                                  <img  src="<?=base_url('assets/sellers_uploads/'.$this->session->userfile)?>" style="border-radius:100%;height:100px;">
+                                </div>
                             <?php if($this->session->flashdata('msg_error')){?>
                                  <div class="alert alert-danger pt-2 pb-2"> <?=$this->session->flashdata('msg_error')?> </div>
                                  <?=$this->session->unset_userdata('msg_error')?>
                             <?php } ?>
-                    		<h3> Login to your dashboard </h3>
-                    		<fieldset style="position:relative;top:50px;bottom:20px;">
+                            <p> 
+                    		<h4> Login to your dashboard </h4>
+                    		<fieldset style="position:relative;top:25px;bottom:20px;">
                                     <div class="form-group">
                                         <label class="sr-only" for="f1-last-name">Email</label>
                                         <input type="text" name="username" id="username" placeholder="Username..." class="f1-last-name form-control" id="f1-last-name">
@@ -104,8 +103,11 @@
                                     </div>
                                     <a href="<?=base_url('sellers')?>"> Don't have an account </a>
                              </fieldset>
+                             
                     	</form>
+                       
                     </div>
+                          
                 </div>
                     
             </div>

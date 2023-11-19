@@ -31,6 +31,8 @@ class Seller_login extends CI_Controller{
                 'seller_id'=>$checkuserExist->id,
                 'firstname'=>$checkuserExist->firstname,
                 'lastname' =>$checkuserExist->lastname,
+                'username' =>$checkuserExist->username,
+                'userfile' =>$checkuserExist->userfile,
                 'usertype'=>$checkuserExist->type." Seller",
                 'logged_in'=>TRUE
              ];
@@ -44,7 +46,11 @@ class Seller_login extends CI_Controller{
 
 
   public function logout (){
-     session_destroy();
+     //session_destroy();
+     $this->session->unset_userdata('seller_id');
+     $this->session->unset_userdata('firstname');
+     $this->session->unset_userdata('lastname');
+     $this->session->unset_userdata('username');
     return redirect(base_url('seller_login'));
     }
 

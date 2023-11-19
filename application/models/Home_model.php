@@ -133,5 +133,10 @@ class Home_model extends CI_model{
 
   }
 
+  public function get_prod_by_location($data){
+     $query = $this->db->get_where('tbl_products',array('location'=>$data));
+     return $query->result();
+  }
+
 }
 ?>

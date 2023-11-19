@@ -54,7 +54,7 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-link  text-dark" href="<?=site_url('home/contact')?>" tabindex="-1" aria-disabled="true">Contact Us</a>
+                 <!-- <a class="nav-link  text-dark" href="<?=site_url('home/contact')?>" tabindex="-1" aria-disabled="true">Contact Us</a>  -->
               </li>
               <li class="nav-item">
                 <a class="nav-link  text-dark" href="<?=base_url('home/store')?>" tabindex="-1" aria-disabled="true"> Store </a>
@@ -93,10 +93,21 @@
                     </ul>
                   </div>
             <?php }else{?>
+              
               <form class="d-flex w-50" style="position:relative;right:70px;">
-              <input class="form-control me-2" type="search" onkeyup="revenue_request();" id="search_product"  placeholder="Search products, brands and categories"  aria-label="Search">
-              <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Search </button>
+                  <input class="form-control me-2" type="search" onchange="revenue_request();" id="search_product"  placeholder="Search products ..."  aria-label="Search">
+                   <!-- <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Search </button>  -->
+                <select name="locate"  id="location" class="form-control me-2" onchange="search_location()">
+                    <?php $location = $this->db->get('tbl_locations')->result(); ?>
+                     
+                      <option value=""> <?=$x = $this->uri->segment(3)==true?$this->uri->segment(3):'Select location' ?> </option>
+                           <?php foreach($location as $locate){ ?>
+                           <option> <?=$locate->locations?> </option>
+                  <?php } ?>
+                </select>
+
             </form>
+
                <a class="nav-link  text-dark" href="<?=base_url('home/custlogin')?>" tabindex="-1" aria-disabled="true" > Login </a>
                <!-- <a class="nav-link  text-dark" href="#" tabindex="-1" aria-disabled="true" data-bs-toggle="modal" data-bs-target="#exampleModal"> Login </a>  -->
                 <a class="nav-link  text-dark" href="<?=site_url('home/signup')?>" tabindex="-1" aria-disabled="true"> Signup </a>
@@ -108,8 +119,6 @@
       <div id="resultDisplay_revenue" style="position:relative;bottom:30px;"></div>
       <center> <div id="btn-revenue mb-4"></div> </center>
 
-
-
  </div>
 <!-- end nav -->
 
@@ -117,35 +126,35 @@
 
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-light">
-          <h5 class="modal-title" id="exampleModalLabel"> User Login </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-light">
+                  <h5 class="modal-title" id="exampleModalLabel"> User Login </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+              <div class="modal-body">
+                <!-- <form  method="POST">  -->
+                      <div class="form-group">
+                        <label> Email  </label>
+                          <input type="text"  name="email"  class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label> Password  </label>
+                          <input type="text"  name="password"  class="form-control">
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit"  id="butsave"  class="btn btn-dark text-warning">Login</button>
+                  </div>
+
+
+            <!-- </form> -->
+            </div>
+          </div>
         </div>
-      <div class="modal-body">
-        <!-- <form  method="POST">  -->
-              <div class="form-group">
-                <label> Email  </label>
-                  <input type="text"  name="email"  class="form-control">
-              </div>
-              <div class="form-group">
-                <label> Password  </label>
-                  <input type="text"  name="password"  class="form-control">
-              </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-            <button type="submit"  id="butsave"  class="btn btn-dark text-warning">Login</button>
-          </div>
-
-
-    <!-- </form> -->
-    </div>
-  </div>
-</div>
 
 
 
@@ -236,4 +245,45 @@
 	    }
 	  });
 	}
-</script>
+
+
+
+
+
+function search_location(){
+   //e.preventDefault();
+        var get_location  = $('#location').val();
+
+		 if(get_location!=""){
+                $("#butsave").attr("disabled", "disabled");
+                    $.ajax({
+                        url: "<?php echo base_url("home/get_location");?>",
+                        type: "POST",
+                        data: {
+                          get_location:get_location 
+                        
+                        },
+                        cache: false,
+                        success: function(res){ 
+                            if(res==true){
+                              //$('#resultDisplay_revenue').html('');
+                               window.location = "<?=base_url('home/search_location/')?>"+get_location ;
+                            }
+                            else if(res==false){
+                                //location.reload();
+                                alert(" Products not found on this location !");
+
+                            }
+
+                        }
+                    });
+
+
+		}else{
+            $('#error').html('please fill all entries !');
+		}
+
+
+}
+</script> 
+

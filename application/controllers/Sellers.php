@@ -30,15 +30,39 @@ class Sellers extends CI_Controller {
           return redirect(base_url('sellers'));
     
         }else{
-          $data = [
-            'firstname'=>$this->input->post('firstname'),
-            'lastname'=>$this->input->post('lastname'),
-            'username'=>$this->input->post('username'),
-            'type'=>$this->input->post('type'),
-            'password'=>$this->myhash($this->input->post('password'))
+          // $data = [
+          //   'firstname'=>$this->input->post('firstname'),
+          //   'lastname'=>$this->input->post('lastname'),
+          //   'username'=>$this->input->post('username'),
+          //   'type'=>$this->input->post('type'),
+          //   'password'=>$this->myhash($this->input->post('password'))
 
-          ];
-           $insert = $this->db->insert('tbl_sellers',$data);
+          //   ];
+            $fname = $this->input->post('firstname');
+            $lname = $this->input->post('lastname');
+            $uname =  $this->input->post('username');
+            $type  =  $this->input->post('type');
+            $pass  = $this->myhash($this->input->post('password'));
+         //image upload------------------------------------
+              $config['upload_path'] = './assets/sellers_uploads/';
+              $config['allowed_types'] ='gif|jpg|png|jpeg|GIF|JPEG|PNG|GIF|JPG';
+              $config['max_size'] ='3048';
+              $config['max_width'] = '80000';
+              $config['max_height'] ='60000';
+              $this->load->library('upload',$config);
+              if(!$this->upload->do_upload()){
+                  $errors = array('error'=>$this->upload->display_errors());
+                  $userfile = 'noimage.jpg';
+              }else{
+                  $data = array('upload_data'=>$this->upload->data());
+                  $userfile =  $_FILES['userfile']['name'];
+                 
+
+              }
+          // close image upload ---------------------------
+         //echo "<pre>"; print_r($data);die;
+               //$insert = $this->db->insert('tbl_sellers',$data);
+           $insert = $this->sellers_m->create_sellers($fname,$lname,$uname,$type,$pass,$userfile);
            if($insert){
               $exist = $this->db->get_where('tbl_sellers',array('username'=>$data['email'],'password'=>$this->myhash($this->input->post('password')) ))->row();
                if($exist){
@@ -138,24 +162,79 @@ class Sellers extends CI_Controller {
       }
 
    public function viewproducts(){
-      $this->data['title'] = " Sellers Products ";
-      $this->data['page_name'] = "viewsellers_prod";
-      $this->data['allsellersprod'] = $this->sellers_m->get_all_sellers_prod();
-      $this->data['prod_images'] = $this->sellers_m->get_prod_images();
-      $this->load->view('layout/index_seller',$this->data);
+            $this->data['title'] = " Sellers Products ";
+            $this->data['page_name'] = "viewsellers_prod";
+            $this->data['allsellersprod'] = $this->sellers_m->get_all_sellers_prod();
+            $this->data['prod_images'] = $this->sellers_m->get_prod_images();
+            $this->load->view('layout/index_seller',$this->data);
 
     }
 
   public function editproduct($id){
-    $this->data['title'] = " Update Product";
-    $this->data['get_img'] = $this->db->get_where('tbl_products',array('prod_id'=>$id))->row()->file_name;
-    $this->data['getsinglerec'] = $this->sellers_m->get_singlerec($id);
-    $this->data['page_name'] = "editproduct";
-    $this->load->view('layout/index_seller',$this->data);
+      $this->data['title'] = "Update Product";
+      $this->data['get_img'] = $this->db->get_where('tbl_products',array('prod_id'=>$id))->row()->file_name;
+      $this->data['getsinglerec'] = $this->sellers_m->get_singlerec($id);
+      $this->data['page_name'] = "editproduct";
+      $this->load->view('layout/index_seller',$this->data);
   }
 
 
+   public function update_sellers(){
+     if($_POST){
+            $sell_prod_id = $this->input->post('id');
+            $prodname = $this->input->post('prod_name');
+            $prodprice = $this->input->post('prod_price');
+            //image upload------------------------------------
+            $config['upload_path'] = './assets/sellers_uploads/';
+            $config['allowed_types'] ='gif|jpg|png|jpeg|GIF|JPEG|PNG|GIF|JPG';
+            $config['max_size'] ='3048';
+            $config['max_width'] = '80000';
+            $config['max_height'] ='60000';
+            $this->load->library('upload',$config);
+            if(!$this->upload->do_upload()){
+                $errors = array('error'=>$this->upload->display_errors());
+                $userfile = 'noimage.jpg';
+            }else{
+                $data = array('upload_data'=>$this->upload->data());
+                $userfile =  $_FILES['userfile']['name'];
 
+            }
+          // close image upload ---------------------------
+          $this->sellers_m->updatesellers_products($sell_prod_id,$prodname,$prodprice,$userfile);
+          //return redirect(base_url('sellers/editproduct/'.$sell_prod_id));
+          return redirect(base_url('sellers/viewproducts/'));
+     }else{
+       return redirect(base_url('sellers/editproduct'));
+     }
+  
+  }
+
+
+   public function deletesellersprod($id){
+       $this->sellers_m->deletesellersProducts($id);
+       return redirect(base_url('sellers/viewproducts'));
+    }
+
+   public function seller_profile(){
+      $userid = $this->session->seller_id;
+      $this->data['seller_profile'] = $this->sellers_m->getsellersprofile($userid);
+      if($this->data['seller_profile']){
+        $this->data['seller_location'] = $this->sellers_m->sellers_location($userid)->location;
+      }
+
+      $this->data['title'] = " Sellers Profile ";
+      $this->data['page_name'] = "seller_profile";
+      $this->load->view('layout/index_seller',$this->data);
+    }
+
+
+  
+     public function search_location(){
+        $this->data['title'] = " Sellers Profile ";
+        $this->data['page_name'] = "load_location";
+        $this->load->view('layout/index_seller',$this->data);
+    }
+  
     public function myhash($string){
 	    return hash("sha512", $string . config_item("encryption_key"));
 	  }
