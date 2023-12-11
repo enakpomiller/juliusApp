@@ -31,11 +31,11 @@
     width:30%;
     padding:15px 20px;
     border-radius:4px;
-    border: 2px solid sandybrown;
+    border: 2px #8e54e9;
 
 }
 .footer-btn{
-  background: #ca0404;
+  background: #8e54e9;
   position:relative;
   left:2px;
   color:white;
@@ -50,7 +50,7 @@
         <p class="news-letter text-light"> NewsLetter </p>
    <div class="footer-nav">
      <input type="text" name="subscribe" placeholder=" Enter your email " class="input-footer pt-2 pb-2">
-     <button class="footer-btn bg-danger text-light pt-2 pb-2"> subscribe </button>
+     <button class="footer-btn text-light pt-2 pb-2"> subscribe </button>
   </div>
 </div>
 

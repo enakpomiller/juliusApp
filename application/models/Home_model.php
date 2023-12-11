@@ -50,10 +50,16 @@ class Home_model extends CI_model{
     return $query->row();
   }
 
+  public function GetSinglesellersProd($id){
+    $query = $this->db->get_where('tbl_products',array('prod_id'=>$id));
+    return $query->row();
+  }
+
   public function getcustomercart($customerid){
          $query = $this->db->get_where('customer_cart',array('user_id'=>$customerid));
-        return $query->result();
+         return $query->result();
   }
+
 
   // public function sumprod ($customerid){
   //      $this->db->select('sum(prod_price) as price');
@@ -84,7 +90,7 @@ class Home_model extends CI_model{
   }
 
   public function getsum_total($table,$data){
-    //  $this->db->select_sum('total_sum');
+    //$this->db->select_sum('total_sum');
     $this->db->select('id,user_id, SUM(total_sum) as sum');
     $this->db->from($table);
     $this->db->where('user_id',$data);
@@ -137,6 +143,28 @@ class Home_model extends CI_model{
      $query = $this->db->get_where('tbl_products',array('location'=>$data));
      return $query->result();
   }
+
+  public function insert_audit($audit){
+    $this->db->insert('tbl_audit',$audit);
+    $last_id = $this->db->insert_id();
+    return $last_id;
+   }
+
+   public function chart_toseller($data_chart){
+      return  $this->db->insert('tbl_chart',$data_chart);
+
+   }
+
+   public function getchars($userid,$seller_id){
+      //$this->db->limit(20);
+      $this->db->order_by('chart_id','ASC');
+      $this->db->where('buyer_id',$userid);
+      $this->db->where('seller_id',$seller_id);
+      //$this->db->where('prod_id >','0');
+      $this->db->from('tbl_chart');
+      $query = $this->db->get();
+      return $query->result();
+   }
 
 }
 ?>

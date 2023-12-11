@@ -2,7 +2,8 @@
 
 
 <div class="container mt-4" style="position:relative;top:50px;margin-bottom:100px;">
-<?php if($getcart){  ?>
+<?php if(($getcart)>0){  ?>
+  
     <p class="text-center"> <?=$this->session->flashdata('success')?> </p>
      <h4 class="" style="position:relative;left:60px;">  <?=ucfirst($this->session->firstname)."'s Cart"?></h4>
      
@@ -35,13 +36,19 @@
                 <?php $grand_sum=0;?>
    
         <?php foreach($getcart as $cart){ ?>
+        
                <div class="row" style="width:90%;margin:auto;">
                  <hr>
+                 
                     <div class="col-md-2">
                         <div class="card border-0">
-                           <img class="" style="width:60%; height:150px;margin:auto;" src="<?='http://localhost/tutorial_class/assets/uploads/'.$cart->prod_image?>">
+                           <img class="" style="width:60%; height:150px;margin:auto;" src="<?=base_url('assets/sellers_uploads/'.$cart->prod_image)?>">
+                           <!-- <img class="" style="width:60%; height:150px;margin:auto;" src="<?='http://localhost/tutorial_class/assets/uploads/'.$cart->prod_image?>"> -->
+                           <?=(($cart->seller_id)>0 ?'<div class="text-center text-success">seller item</div>':'<div class="text-center text-success">store item </div>')?>
+                           <i class="fa fas-trash"></i>
                         </div>
                    </div>
+                  
                    <div class="col-md-2 mt-4">
                         <div class="card border-0">
                           <p class="text-center"> <?=$cart->prod_name?> </p>
@@ -89,8 +96,8 @@
 
                         */?>
                      <p>  TOTAL: <?="&#x20A6;".number_format($sum_total->sum)?> </p> 
-                     <button class="pt-2 pb-2 pr-4 pl-4 border-0" style="background:#ef5f21;"> <a href="" class="text-light" style="text-decoration:none"><a href="<?=base_url('home')?>" class="text-decoration-none text-light"> Continue Shopping</a></a> </button>
-                     <button class="pt-2 pb-2 pr-4 pl-4 border-0" style="background:#ef5f21;;"> <a href="<?=base_url('home/checkout')?>" class="text-light" style="text-decoration:none"> Check Out Now </a>  </button>
+                     <button class="pt-2 pb-2 pr-4 pl-4 border-0" style="background:#8e54e9;"> <a href="" class="text-light" style="text-decoration:none"><a href="<?=base_url('home')?>" class="text-decoration-none text-light"> Continue Shopping</a></a> </button>
+                     <button class="pt-2 pb-2 pr-4 pl-4 border-0" style="background:#8e54e9;"> <a href="<?=base_url('home/checkout')?>" class="text-light" style="text-decoration:none"> Check Out Now </a>  </button>
             </div>
 
 

@@ -41,7 +41,7 @@
         <div class="carousel-caption d-none d-md-block" style="margin-bottom:160px;">
           <h1 class="mb-4"> Classic Collections</h1>
           <p>Some representative placeholder content for the first slide.</p>
-          <button class=" w-25 pt-2 pb-2 border-0 text-light" style="background:#ef5f21;"> Read More </button>
+          <button class=" w-25 pt-2 pb-2 border-0 text-light" style="background:#8e54e9;"> Read More </button>
         </div>
       </div>
       <div class="carousel-item">
@@ -49,7 +49,7 @@
         <div class="carousel-caption d-none d-md-block" style="margin-bottom:160px;">
           <h1> Unique Collections</h1>
           <p>Some representative placeholder content for the second slide.</p>
-          <button  class=" w-25 pt-2 pb-2 border-0 text-light" style="background:#ef5f21;"><b> Read More </b></button>
+          <button  class=" w-25 pt-2 pb-2 border-0 text-light" style="background:#8e54e9;"><b> Read More </b></button>
         </div>
       </div>
       <div class="carousel-item">
@@ -57,7 +57,7 @@
         <div class="carousel-caption d-none d-md-block" style="margin-bottom:160px;">
           <h1> Made For You</h1>
           <p>Some representative placeholder content for the third slide.</p>
-          <button class=" w-25 pt-2 pb-2 border-0 text-light" style="background:#ef5f21;"> Read More </button>
+          <button class=" w-25 pt-2 pb-2 border-0 text-light" style="background:#8e54e9;"> Read More </button>
         </div>
       </div>
     </div>

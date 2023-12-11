@@ -8,7 +8,7 @@
                     <?php $this->session->unset_userdata('success') ?>
             </div>
         <div class="col-md-6">
-           <form action="<?=site_url('home/signup')?>" method="POST">
+           <?php echo form_open_multipart('home/signup');?>
                 <h1> <?=$title?></h1>
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">First Name</label>
@@ -23,6 +23,11 @@
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Email</label>
                     <input type="text"  name="email" value="<?=set_value('email')?>" class="form-control w-100" id="exampleInputPassword1">
+                    <div style="color: red;"> <?=form_error('email')?></div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label"> Profile Pix </label>
+                    <input type="file"  name="userfile"  class="form-control w-100" id="exampleInputPassword1">
                     <div style="color: red;"> <?=form_error('email')?></div>
                 </div>
                 <div class="mb-3">

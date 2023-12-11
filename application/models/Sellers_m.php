@@ -22,10 +22,10 @@
    }
   
    public function insert_multiple_files($data = array()){
-    // $insert = $this->db->insert_batch('seller_prod',$data);
-    $insert = $this->db->insert_batch('tbl_products',$data);
-    return $insert?true:false;
-}
+      // $insert = $this->db->insert_batch('seller_prod',$data);
+      $insert = $this->db->insert_batch('tbl_products',$data);
+      return $insert?true:false;
+   }
 
 public function create_sellers($fname,$lname,$uname,$type,$pass,$userfile){
      $data_arr = [
@@ -97,7 +97,7 @@ public function updatesellers_products($sell_prod_id ,$prodname,$prodprice,$user
  }
 
  public function getsellersprofile($userid){
-    $query = $this->db->get_where('tbl_sellers',array('id'=>$userid));
+     $query = $this->db->get_where('tbl_sellers',array('id'=>$userid));
      return $query->row();
   
 }
@@ -107,6 +107,52 @@ public function updatesellers_products($sell_prod_id ,$prodname,$prodprice,$user
     return $query->row();
  }
 
+public function getsales($data){
+    $this->db->select('userid,firstname,othernames, email');
+    $this->db->select('id,user_id,prod_name,prod_price,size,color,qty,date,prod_image');
+    $this->db->from('users');
+    $this->db->join('customer_cart','customer_cart.user_id = users.userid');
+    $this->db->where('customer_cart.seller_id',$data);
+    $query = $this->db->get();
+    return $query->result();
 
+
+}
+
+public function getproducttotal($data){
+     $this->db->select('id,SUM(prod_price) as total_price');
+     $this->db->select('id,SUM(qty) as quantity');
+     $this->db->from('customer_cart');
+     $this->db->where('seller_id',$data);
+     $query = $this->db->get();
+     return $query->result();
+}
+
+public function adminlogin($user,$pass){
+   $query = $this->db->get_where('tbl_admin',array('username'=>$user,'password'=>$pass));
+   return $query->row();
+
+}
+
+public function getchars($userid,$seller_id){
+      //$this->db->limit(20);
+      $this->db->order_by('chart_id','ASC');
+      $this->db->where('buyer_id',$userid);
+      $this->db->where('seller_id',$seller_id);
+      //$this->db->where('prod_id >','0');
+      $this->db->from('tbl_chart');
+      $query = $this->db->get();
+      return $query->result();
+}
+
+public function getfeedback($userid,$seller_id){
+      $this->db->order_by('chart_id','ASC');
+      $this->db->where('buyer_id',$userid);
+      $this->db->where('seller_id',$seller_id);
+      $this->db->where('prod_id','0');
+      $this->db->from('tbl_chart');
+      $query = $this->db->get();
+      return $query->result();
+ }
 
  }

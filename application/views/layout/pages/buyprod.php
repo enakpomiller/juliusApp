@@ -98,9 +98,9 @@
                                 </div>
                                 <p>
                             </div>
-                               <button type="submit"  class="border-0 text-light pt-2 pb-2" id="btnsubmit" style="background:#ef5f21;"> Add To Cart </button>
+                               <button type="submit"  class="border-0 text-light pt-2 pb-2" id="btnsubmit" style="background:#8e54e9;"> Add To Cart </button>
                         </div>
-                          <button type="submit"  class="border-0 text-light pt-2 pb-2 w-100 mt-2"  style="background:#ef5f21;"><a href="<?=base_url('home')?>" class="text-light text-decoration-none"> Continue Shopping </a> </button>
+                          <button type="submit"  class="border-0 text-light pt-2 pb-2 w-100 mt-2"  style="background:#8e54e9;"><a href="<?=base_url('home')?>" class="text-light text-decoration-none"> Continue Shopping </a> </button>
              </section>
       </div>
   </form>

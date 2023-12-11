@@ -25,6 +25,8 @@ class Seller_login extends CI_Controller{
           $user = $this->input->post('user');
           $pass = $this->myhash($this->input->post('pass'));
           $checkuserExist = $this->sellers_m->checkuserExist($user,$pass);
+          // login as an Admin
+           $checkadlinexist = $this->sellers_m->adminlogin($user,$pass);
           if($checkuserExist){
             echo true;
              $data_arr =[
@@ -38,9 +40,20 @@ class Seller_login extends CI_Controller{
              ];
              $this->session->set_userdata($data_arr);
            
+           }elseif($checkadlinexist){
+             $data_arr =[
+              'admin_id'=>$checkadlinexist->admin_id,
+              'firstname'=>$checkadlinexist->username,
+              'usertype'=>$checkadlinexist->username,
+              'userfile'=>('admin_avatar.jpeg'),
+              'admin_logged_in'=>TRUE
+             ];
+        
+             $this->session->set_userdata($data_arr);
+            echo true;
            }else{
             echo false;
-           }
+          }
       }
 
 
@@ -51,8 +64,11 @@ class Seller_login extends CI_Controller{
      $this->session->unset_userdata('firstname');
      $this->session->unset_userdata('lastname');
      $this->session->unset_userdata('username');
+    // $this->session->unset_userdata('userfile');
     return redirect(base_url('seller_login'));
     }
+
+
 
 
   public function myhash($string){

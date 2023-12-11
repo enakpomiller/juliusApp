@@ -13,16 +13,16 @@
        }
 
 
-       public function index(){
-         if($this->session->logged_in){
-          $this->data['title'] = " Dashboard ";
-          $this->data['page_name'] = "dashboard";
-          $this->load->view('layout/index_admin2',$this->data);
-         }else{
-           return redirect(base_url('seller_login'));
-         }
+      public function index(){
+          if($this->session->logged_in){
+              $this->data['title'] = " Dashboard ";
+              $this->data['page_name'] = "dashboard";
+              $this->load->view('layout/index_admin2',$this->data);
+          }else{
+            return redirect(base_url('seller_login'));
+          }
        
        }
-
-
+   
+ 
 }

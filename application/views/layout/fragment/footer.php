@@ -24,7 +24,7 @@
     width:30%;
     padding:15px 20px;
     border-radius:4px;
-    border: 2px solid sandybrown;
+    border: 2px #8e54e9;
 
 }
 </style>
@@ -33,7 +33,7 @@
         <p class="news-letter text-light"> News Letter</p>
    <div class="footer-nav">
      <input type="text" name="" placeholder=" Enter your email address" class="input-footer pt-2 pb-2">
-     <button class="footer-btn bg-anger text-light pt-2 pb-2"> subscribe </button>
+     <button class="footer-btn  text-light pt-2 pb-2" style="background:#8e54e9;"> subscribe </button>
   </div>
 
   <i class="fa fa-facebook w-50"></i>

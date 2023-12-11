@@ -19,8 +19,8 @@
                                     <li> <a href='<?=base_url('sellers/create_item')?>'>Create items  </a> </li>
                                     <li> <a href='<?=base_url('sellers/seller_profile')?>'> Sellers Profile  </a> </li>
                                     <li> <a href='<?=base_url('sellers/viewproducts')?>'> Sellers Products    </a> </li>
-                                    <li> <a href='<?=base_url('sellers/viewproducts')?>'> View bought items   </a> </li>
-
+                                    <li> <a href='<?=base_url('sellers/viewsales')?>'> View  Sales   </a> </li>
+                                    <li> <a href='<?=base_url('sellers/chartcustomer')?>'> Enguage in chart   </a> </li>
                                     <li> <a href='<?=base_url('admin2')?>'> Change Password   </a> </li>
 
                                         <!-- <li> <a href='index-ecommerce.html'>Ecommerce</a> </li>

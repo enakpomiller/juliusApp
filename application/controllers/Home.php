@@ -23,9 +23,9 @@ class Home extends CI_Controller {
               // set_cookie('cookie_name','cookie_value','3600');
               //set_cookie('cookie_name','firstname','3600');
           $this->data['title'] = " Landing Page";
-		      $this->data['allprod'] = $this->home_model->gellproduct();
+		  $this->data['allprod'] = $this->home_model->gellproduct();
           $this->data['page_title'] = "home";
-    	    $this->load->view('layout/index',$this->data);
+    	  $this->load->view('layout/index',$this->data);
     	}
 
       public function about(){
@@ -67,15 +67,33 @@ class Home extends CI_Controller {
 			$this->form_validation->set_rules('password','Password','required');
 			$this->form_validation->set_rules('passconf', 'Password Confirmation', 'trim|required|matches[password]');
 			if($this->form_validation->run()===TRUE){
+
+		   //image upload------------------------------------
+				$config['upload_path'] = './assets/uploads/';
+				$config['allowed_types'] ='gif|jpg|png|jpeg|GIF|JPEG|PNG|GIF|JPG';
+				$config['max_size'] ='3048';
+				$config['max_width'] = '80000';
+				$config['max_height'] ='60000';
+				$this->load->library('upload',$config);
+				if(!$this->upload->do_upload()){
+					$errors = array('error'=>$this->upload->display_errors());
+					$userfile = 'noimage.jpg';
+				}else{
+					$data = array('upload_data'=>$this->upload->data());
+					$userfile = $_FILES['userfile']['name'];
+	
+				}
+		   //close image upload ---------------------------
 			   $data =[
 				'firstname'=>$this->input->post('firstname'),
 				'othernames'=>$this->input->post('othernames'),
 				'email'=>$this->input->post('email'),
+				'userfile'=>$userfile,
 				'password'=>$this->myhash($this->input->post('password'))
 			   ];
-
+               
 			   $email = $this->input->post('email');
-
+                 //echo "<pre>"; print_r($data);die;
 			   $insert = $this->home_model->creatcustomer($data);
 			   if($insert){
 			      $this->session->set_flashdata('success','Customer created successfullly, please Login to start shopping');
@@ -130,8 +148,42 @@ class Home extends CI_Controller {
 			echo 400;
 		}
 
+	}
 
-
+	public function buy_from_seller(){
+		if($this->session->logged_in){
+			$userid = $this->session->userdata('userid');
+				$data = [
+					'user_id'=>$userid,
+					'prod_id'=>$this->input->post('prod_id'),
+					'size'=>$this->input->post('size'),
+					'color'=>$this->input->post('color'),
+					'prod_name'=>$this->input->post('prod_name'),
+					'prod_price'=>$this->input->post('prod_price'),
+					'qty'=>$this->input->post('quantity'),
+					'prod_image'=>$this->input->post('prod_image'),
+					'date'=>date("Y-M-Y"),
+					'seller_id'=>$this->input->post('seller_id')
+				];
+	         $create = $this->home_model->createcart($data);
+			if($create){
+				 $amt_arr = [
+					'cart_id'=>$create,
+					'user_id'=>$userid,
+					 'total_sum'=>$data['prod_price'] * $data['qty']
+				 ];
+				 $this->db->insert('tbl_sum_total',$amt_arr);
+				 echo true;
+				//$this->session->set_flashdata('success',' Item Added To Cart');
+			    //return redirect(base_url('home/buyprod/'.$data['prod_id']));
+			}else{
+				echo false;
+			   //echo " cannot create cart ";
+			return redirect(site_url('home/custlogin'));
+			}
+		}else{
+			echo 400;
+		}
 	}
 
 	public function custlogin(){
@@ -152,6 +204,7 @@ class Home extends CI_Controller {
 							'logged_in'=>TRUE
 						];
 						$this->session->set_userdata($data);
+
 					}else{
 						echo false;
 					}
@@ -168,6 +221,100 @@ class Home extends CI_Controller {
 
 	 }
 
+
+	 public function seller_buy(){
+		$userid = $this->session->userid;
+		$seller_id = $this->session->seller_id;
+		
+				// $cookie_name = $this->session->firstname;
+				// $cookie_value = "John Doe";
+				// setcookie($cookie_name, $cookie_value, time() + (5 * 5), "/"); // for 20 miniuts
+				// if(!isset($_COOKIE[$cookie_name])) {
+				// 	echo "Cookie named '" . $cookie_name . "' is not set!";
+				//   } else {
+				// 	echo "Cookie '" . $cookie_name . "' is set!<br>";
+				// 	echo "Value is: " . $_COOKIE[$cookie_name];
+				//   }
+
+		
+		$this->data['getchart'] = $this->home_model->getchars($userid,$seller_id);
+	//  echo "<pre>"; print_r($this->data['getchart']);die;
+		$prod_id  = $this->uri->segment(3);
+		$this->data['title'] = " Buy Product ";
+		$this->data['page_title'] = "seller_buy";
+		$this->data['getsingleprod'] = $this->home_model->GetSinglesellersProd($prod_id);
+		//$id  = $this->data['getsingleprod']->prod_id;
+
+		$this->load->view('layout/index2',$this->data);
+	}
+
+   public function chart_with_seller(){
+	   if($_POST){
+			$data_chart = [
+				'seller_id'=>$this->input->post('seller_id'),
+				'buyer_id' => $this->input->post('user_id'),
+				'prod_id' => $this->input->post('prod_id'),
+				'coment' => $this->input->post('comment'),
+				'date_time'=>date('H:I:SA')
+			];
+			$insert_chart =  $this->home_model->chart_toseller($data_chart);
+			if($insert_chart){
+			  echo true;
+			}else{
+			  echo false;
+			}
+
+	    }else{
+			$prod_id  = $this->uri->segment(3);
+			$userid = $this->session->userid;
+			$seller_id = $this->session->seller_id;
+			$this->data['getchart'] = $this->home_model->getchars($userid,$seller_id);
+
+	    }
+
+    }
+
+
+	public function seller_buy_login($id){
+		if($_POST){
+		    $this->form_validation->set_rules('email','Email','required');
+		    $this->form_validation->set_rules('password'.'Password','required');
+		    if($this->form_validation->run()===TRUE){
+				$email = $this->input->post('email');
+				$pass  = $this->myhash($this->input->post('password'));
+				$checkuser = $this->home_model->loginuser($email,$pass);
+					if($checkuser){
+						$data =[
+							'userid'=>$checkuser->userid,
+							'firstname'=>$checkuser->firstname,
+							'othernames'=>$checkuser->othernames,
+							'email'=>$checkuser->email,
+							'logged_in'=>TRUE
+						 ];
+						 $this->session->set_userdata($data);
+						 $this->session->set_userdata('fname',$data['firstname']);
+				
+						 return redirect(base_url('home/seller_buy/'.$id ));
+					}else{
+					   $this->session->set_flashdata('msg_error','Incorrect Username or Password ');
+					   return redirect(base_url('home/seller_buy_login/'.$id));
+					}
+		   }else{
+				$this->data['title'] = " Login";
+				$this->data['page_title'] = "seller_buy_login";
+				$this->load->view('layout/index2',$this->data);
+		   }
+		}else{
+			$this->data['msg_notice'] = " Please login or create an account to start with seller on a product ";
+			$this->data['title'] = " Login";
+			$this->data['page_title'] = "seller_buy_login";
+			$this->load->view('layout/index2',$this->data);
+		}
+	}
+
+
+
+
 	public function store(){
 		if($this->session->userdata('logged_in')){
 			$this->data['title'] = " Store front";
@@ -175,21 +322,23 @@ class Home extends CI_Controller {
 			$this->data['page_title'] = "store";
 			$this->load->view('layout/index2',$this->data);
 		}else{
-		$this->session->set_flashdata('error',' Please Login in order to access the store front ');
-		return redirect(base_url('home/custlogin'));
+			$this->session->set_flashdata('error',' Please Login in order to access the store front ');
+			return redirect(base_url('home/custlogin'));
 		}
 
 	}
 
    public function viewcart(){
-	  $customerid = $this->session->userid;;
-	  $this->data['title'] = " View Your Cart";
-		   //$this->data['sumprice'] = $this->home_model->sumprod($customerid);
+	    $customerid = $this->session->userid;;
+	    $this->data['title'] = " View Your Cart";
+	    //$this->data['sumprice'] = $this->home_model->sumprod($customerid);
 		$this->data['getcart'] = $this->home_model->getcustomercart($customerid);
+		// echo "<pre>"; print_r($this->data['getcart']);die;
 		$this->data['sum_total'] = $this->home_model->getsum_total('tbl_sum_total', $customerid);
+
 		$this->data['page_title'] = "viewcart";
 		$this->load->view('layout/index2',$this->data);
-   }
+    }
 
    public function delete_item($id){
 	  $this->data['delete_item'] = $this->home_model->DeleteItem($id);
@@ -211,7 +360,7 @@ class Home extends CI_Controller {
 		$this->data['page_title'] = "checkout";
 		$this->load->view('layout/index2',$this->data);
 	}
- 
+
 	public function make_payment(){
 		$this->data['title'] = " Make Payment";
 		$this->data['page_title'] = "make_payment";
@@ -234,7 +383,7 @@ class Home extends CI_Controller {
 			'country'=>$this->input->post('country'),
 			'date_created'=>date("i:sa")
 		];
-	
+
 		 $_SESSION['timer'] = $data['date_created'];
 		 $_SESSION['recipient_email'] = $this->input->post('email');
 		 $_SESSION['customer_names'] = $data['fname']." ".$data['lname'];
@@ -254,7 +403,7 @@ class Home extends CI_Controller {
 			$this->data['title'] = " Customer's Invoice ";
 			$this->data['get_user'] = $this->home_model->get_single_customer($user_id);
 			$this->data['cart_details'] = $this->home_model->get_cart_details($user_id);
-			
+
 			$this->data['sum_total'] = $this->home_model->getsum_total('tbl_sum_total', $user_id);
 			$this->data['getshippings'] = $this->home_model->get_shipping_details($_SESSION['timer']);
 			$this->data['page_title'] = "print_invoice";
@@ -279,7 +428,7 @@ class Home extends CI_Controller {
          }else{
           echo false;
         }
-        
+
      }
 
    public function search_location($location){
@@ -287,7 +436,7 @@ class Home extends CI_Controller {
 		$this->data['get_prodby_location'] = $this->home_model->get_prod_by_location($location);
 		$this->data['page_title'] = "load_location";
 		$this->load->view('layout/index2',$this->data);
-	  
+
    }
 
 
@@ -306,6 +455,7 @@ class Home extends CI_Controller {
 		$this->data['getsingleprod'] = $this->home_model->GetSingleProd($id);
 		$this->load->view('layout/index2',$this->data);
 	}
+
 
 
 	public function search_product(){
@@ -330,10 +480,29 @@ class Home extends CI_Controller {
 
       }
 
+
+  public function chartseller($id){
+  	 if(!$this->session->logged_in){
+  	      redirect(base_url('home/seller_buy_login/'.$id));
+  	 }else{
+  		$this->data['title'] = " chart with seller ";
+  		$this->data['page_title'] = "chartseller";
+  		$this->load->view('layout/index2',$this->data);
+  	 }
+
+
+  }
+
+
+
+
+
+
    public function logout(){
       session_destroy();
 	  redirect(base_url('home'));
     }
+
 
 	public function myhash($string){
 		return hash("sha512", $string . config_item("encryption_key"));

@@ -1,7 +1,7 @@
 
 <style> 
     #prod-cover:hover{
-              border: 1px solid sandybrown;
+              border: 1px #8e54e9;
           }
 </style>
 
@@ -17,7 +17,7 @@
                                             </div>
                                             <h5 class="text-center"> <?=$prod->prod_name?>  </h5>
                                             <h5 class="text-center"> <?=number_format(($prod->prod_price),2)?>  </h5>
-                                            <a href="" class="text-center  pt-2 pb-2  text-light" style="text-decoration:none;background:#ef5f21;"> Buy Item </a>
+                                            <a href="" class="text-center  pt-2 pb-2  text-light" style="text-decoration:none;background:#8e54e9;"> Buy Item </a>
                                         </div>
                              </section>
                             

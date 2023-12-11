@@ -228,13 +228,51 @@ class Sellers extends CI_Controller {
     }
 
 
-  
-     public function search_location(){
+  public function chartcustomer(){
+        if($_POST){
+            $data_insert_chat =[
+              'coment'=>  $this->input->post('chart_to_cust'),
+              'seller_id'=>$this->input->post('seller_id'),
+              'buyer_id'=>$this->input->post('buyer_id'),
+              'date_time'=>date('H:i:sa')
+            ];
+            $insertchart = $this->db->insert('tbl_chart',$data_insert_chat);
+            if($insertchart){
+                return redirect(base_url('sellers/chartcustomer'));
+            }else{
+              echo " cannot create ";
+            }
+        }else{
+          $userid = $this->session->userid;
+          $seller_id = $this->session->seller_id;
+          $this->data['getchart'] = $this->sellers_m->getchars($userid,$seller_id);
+    
+          $this->data['feedback'] = $this->sellers_m->getfeedback($userid,$seller_id);
+          $this->data['title'] = " Engage in chart with customer ";
+          $this->data['page_name'] = "chartcustomer";
+      
+          $this->load->view('layout/index_seller',$this->data);
+        }
+
+  }
+
+  public function search_location(){
         $this->data['title'] = " Sellers Profile ";
         $this->data['page_name'] = "load_location";
         $this->load->view('layout/index_seller',$this->data);
     }
-  
+    
+    public function viewsales(){
+      $seller_id = $this->session->seller_id;
+      $this->data['title'] = " View All Sales";
+      $this->data['page_name'] = "viewsales";
+      $this->data['getsales'] = $this->sellers_m->getsales($seller_id);
+      $this->data['total'] = $this->sellers_m->getproducttotal($seller_id);
+      //$this->data['total_qty'] = $this->sellers_m->gettotal_items($seller_id);
+
+      $this->load->view('layout/index_seller',$this->data);
+    }
+    
     public function myhash($string){
 	    return hash("sha512", $string . config_item("encryption_key"));
 	  }

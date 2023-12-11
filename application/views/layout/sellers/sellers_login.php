@@ -81,7 +81,13 @@
                     <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 form-box">
                     	<form role="form" class="f1" enctype="multipart/form-data">
                             <div>
-                                  <img  src="<?=base_url('assets/sellers_uploads/'.$this->session->userfile)?>" style="border-radius:100%;height:100px;">
+                                <?php if($this->session->userfile)  { ?>
+                                    <img  src="<?=base_url('assets/sellers_uploads/'.$this->session->userfile)?>" style="border-radius:100%;height:100px;">
+                                <?php }?>
+                                
+                          
+
+
                                 </div>
                             <?php if($this->session->flashdata('msg_error')){?>
                                  <div class="alert alert-danger pt-2 pb-2"> <?=$this->session->flashdata('msg_error')?> </div>

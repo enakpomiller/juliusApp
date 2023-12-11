@@ -70,7 +70,7 @@
 }
 
 .x:hover{
-  border:1px solid #ef5f21;
+  border:1px solid #8e54e9;
 }
 </style>
 
@@ -89,7 +89,7 @@
                                     </div>
                                     <h5 class="text-center"> <?=$prod->prod_name?>  </h5>
                                     <h5 class="text-center"> <?="&#x20A6;".number_format(($prod->prod_price),2)?>  </h5>
-                                    <a href="<?=base_url('home/buyprod/'.$prod->id)?>" class="text-center  pt-2 pb-2  text-light" style="text-decoration:none;background:#ef5f21;"> Buy Item </a>
+                                    <a href="<?=base_url('home/buyprod/'.$prod->id)?>" class="text-center  pt-2 pb-2  text-light" style="text-decoration:none;background:#8e54e9;"> Buy Item </a>
                                 </div>
                             </section>
                             

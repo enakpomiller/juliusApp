@@ -40,7 +40,7 @@
 <div class="header"  id="scrollspyHeading2">
       <nav class="navbar navbar-expand-lg  navbar-light bg-light pt-4 pb-4 w-100 bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand  text-light" href="" style="padding-left:10px; padding-right:10px;background:#ef5f21;">J-CLOTH</a>
+          <a class="navbar-brand  text-light" href="" style="padding-left:10px; padding-right:10px;background:#8e54e9;">J-CLOTH</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -64,6 +64,13 @@
                  <form  class="d-flex w-50 " style="position:relative;right:150px;" method="POST">
                        <input  class="typeahead form-control" onkeyup="revenue_request();" id="search_product"  type="text" value="<?=$itemname?>" placeholder=" Search Product By Name" aria-label="Search">
                       <!-- <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Searchxxxx </button> -->
+                      <select name="locate"  id="location" class="form-control me-2" onchange="search_location()">
+                    <?php $location = $this->db->get('tbl_locations')->result(); ?>
+                      <option value=""> <?=$x = $this->uri->segment(3)==true?$this->uri->segment(3):'Select location' ?> </option>
+                           <?php foreach($location as $locate){ ?>
+                           <option> <?=$locate->locations?> </option>
+                  <?php } ?>
+                </select>
                 </form>
               <!-- <input class="typeahead form-control"  type="text"> -->
                    <?php
@@ -79,7 +86,8 @@
                     <ul class="dropdown-menu" style="" aria-labelledby="dropdownMenuButton1">
                      <?php if(($cart)){ ?>
                            <?php  foreach($cart as $carts){?>
-                             <li class="dropdown-item"> <center>  <img style="width:30%;" src="<?='http://localhost/tutorial_class/assets/uploads/'.$carts->prod_image?>">  <span style="position:relative;left:10px;"><br><?=$carts->prod_name?>  </span> </center>  </li>
+                            <li class="dropdown-item"> <center>  <img style="width:30%;" src="<?=base_url('assets/sellers_uploads/'.$carts->prod_image)?>">  <span style="position:relative;left:10px;"><br><?=$carts->prod_name?>  </span> </center>  </li>
+                             <!-- <li class="dropdown-item"> <center>  <img style="width:30%;" src="<?='http://localhost/tutorial_class/assets/uploads/'.$carts->prod_image?>">  <span style="position:relative;left:10px;"><br><?=$carts->prod_name?>  </span> </center>  </li> -->
                             <?php  }?>
                          <?php }else{?>
                           <div class="text-center">
@@ -89,7 +97,7 @@
                          <?php }?>
                       <li>  <a class="nav-link  text-light bg-dark mt-2 mb-2 text-center"  href="<?=site_url('home/viewcart')?>" tabindex="-1" aria-disabled="true"> View Cart </a></li>
                       <li><a class="nav-link  text-light bg-dark mt-2 mb-2 text-center"  href="<?=site_url('home')?>" tabindex="-1" aria-disabled="true"> Continue shopping </a></li>
-                      <li>  <a class="nav-link  text-light text-center" onclick="return confirm(' you wish to logout?')" href="<?=site_url('home/logout')?>" tabindex="-1" aria-disabled="true" style="background:#ef5f21;"> Logout </a>  </li>
+                      <li>  <a class="nav-link  text-light text-center" onclick="return confirm(' you wish to logout?')" href="<?=site_url('home/logout')?>" tabindex="-1" aria-disabled="true" style="background:#8e54e9;"> Logout </a>  </li>
                     </ul>
                   </div>
             <?php }else{?>
@@ -99,7 +107,6 @@
                    <!-- <button class=" text-light w-25 border-0" type="submit" style="background:#ef5f21;">Search </button>  -->
                 <select name="locate"  id="location" class="form-control me-2" onchange="search_location()">
                     <?php $location = $this->db->get('tbl_locations')->result(); ?>
-                     
                       <option value=""> <?=$x = $this->uri->segment(3)==true?$this->uri->segment(3):'Select location' ?> </option>
                            <?php foreach($location as $locate){ ?>
                            <option> <?=$locate->locations?> </option>
@@ -271,7 +278,7 @@ function search_location(){
                             }
                             else if(res==false){
                                 //location.reload();
-                                alert(" Products not found on this location !");
+                                alert(" Products not found on this location !"+" "+(get_location));
 
                             }
 
