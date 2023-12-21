@@ -115,40 +115,124 @@ class Home extends CI_Controller {
 	}
 
 	public function createcart(){
-		if($this->session->logged_in){
-			$userid = $this->session->userdata('userid');
-				$data = [
-					'user_id'=>$userid,
-					'prod_id'=>$this->input->post('prod_id'),
-					'size'=>$this->input->post('size'),
-					'color'=>$this->input->post('color'),
-					'prod_name'=>$this->input->post('prod_name'),
-					'prod_price'=>$this->input->post('prod_price'),
-					'qty'=>$this->input->post('quantity'),
-					'prod_image'=>$this->input->post('prod_image'),
-					'date'=>date("Y-M-Y")
-				];
-	       $create = $this->home_model->createcart($data);
-			if($create){
-				 $amt_arr = [
-					'cart_id'=>$create,
-					'user_id'=>$userid,
-					 'total_sum'=>$data['prod_price'] * $data['qty']
-				 ];
-				 $this->db->insert('tbl_sum_total',$amt_arr);
-				 echo true;
-				//$this->session->set_flashdata('success',' Item Added To Cart');
-			    //return redirect(base_url('home/buyprod/'.$data['prod_id']));
-			}else{
-				echo false;
-			   //echo " cannot create cart ";
-			return redirect(site_url('home/custlogin'));
-			}
+		if($_POST){
+			if($this->session->looged_in){ 
+				$userid = $this->session->userdata('userid');
+					$data = array(
+						'user_id'=>$userid,
+						'prod_id'=>$this->input->post('prod_id'),
+						'size'=>$this->input->post('size'),
+						'color'=>$this->input->post('color'),
+						'prod_name'=>$this->input->post('prod_name'),
+						'prod_price'=>$this->input->post('prod_price'),
+						'qty'=>$this->input->post('quantity'),
+						'prod_image'=>$this->input->post('prod_image'),
+						'date'=>date("Y-M-Y")
+					);
+
+					// set cookie 
+							// $arrayData=array(
+							// 	'user_id'=>$userid,
+							// 	'prod_id'=>$this->input->post('prod_id'),
+							// 	'size'=>$this->input->post('size'),
+							// 	'color'=>$this->input->post('color'),
+							// 	'prod_name'=>$this->input->post('prod_name'),
+							// 	'prod_price'=>$this->input->post('prod_price'),
+							// 	'qty'=>$this->input->post('quantity'),
+							// 	'prod_image'=>$this->input->post('prod_image'),
+							// 	'date'=>date("Y-M-Y")  
+							// );
+							// setcookie('cookieData', json_encode($arrayData), time()+3600);// set time for 1 hour [1 hour=3600 seconds]
+							// $arrayData = json_decode($_COOKIE['cookieData']);
+					// end cookie
+
+	               $create = $this->home_model->createcart($data);
+					if($create){
+						$amt_arr = [
+							'cart_id'=>$create,
+							'user_id'=>$userid,
+							'total_sum'=>$data['prod_price'] * $data['qty']
+						];
+						$this->db->insert('tbl_sum_total',$amt_arr);
+						echo true;
+						//$this->session->set_flashdata('success',' Item Added To Cart');
+						//return redirect(base_url('home/buyprod/'.$data['prod_id']));
+					}else{
+						echo false;
+						//echo " cannot create cart ";
+					return redirect(site_url('home/custlogin'));
+					}  
+		    }else{
+			
+				 $is_timer_id_exist = $this->db->get_where('customer_cart_copy1',array('user_id'=>$_SESSION['get_time_as_id'] ))->row();
+				 $exist_prod  = $this->db->get_where('customer_cart_copy1',array('prod_id'=>$this->input->post('prod_id') ))->row();
+
+				 if($exist_prod){
+					echo "400";
+				    //return redirect(base_url('home/buyprod/'.$this->input->post('prod_id')));
+				  }else{
+					if($is_timer_id_exist){
+					    $data = array(
+							'user_id'=>$_SESSION['get_time_as_id'],
+							'prod_id'=>$this->input->post('prod_id'),
+							'size'=>$this->input->post('size'),
+							'color'=>$this->input->post('color'),
+							'prod_name'=>$this->input->post('prod_name'),
+							'prod_price'=>$this->input->post('prod_price'),
+							'qty'=>$this->input->post('quantity'),
+							'prod_image'=>$this->input->post('prod_image'),
+							'date'=>date("Y-M-Y")
+					    );
+					   $insert_temp_cart = $this->home_model->create_temporal_cart($data);
+					      if($insert_temp_cart){
+								$amt_arr = [
+									'cart_id'=>$insert_temp_cart,
+									'user_id'=>$is_timer_id_exist->user_id,
+									'total_sum'=>$data['prod_price'] * $data['qty']
+								];
+								$this->db->insert('tbl_sum_total_copy1',$amt_arr);
+								echo true;
+					        }
+				
+				   }else{
+						$data = array(
+							'user_id'=>date('sa'),
+							'prod_id'=>$this->input->post('prod_id'),
+							'size'=>$this->input->post('size'),
+							'color'=>$this->input->post('color'),
+							'prod_name'=>$this->input->post('prod_name'),
+							'prod_price'=>$this->input->post('prod_price'),
+							'qty'=>$this->input->post('quantity'),
+							'prod_image'=>$this->input->post('prod_image'),
+							'date'=>date("Y-M-Y")
+						);
+				       $last_cart_id =  $this->home_model->create_temporal_cart($data);
+				      if($last_cart_id){
+						$amt_arr = [
+							'cart_id'=>$insert_temp_cart,
+							'user_id'=>$is_timer_id_exist->user_id,
+							'total_sum'=>$data['prod_price'] * $data['qty']
+						];
+						$this->db->insert('tbl_sum_total_copy1',$amt_arr);
+						echo true;
+				       }
+				      $time_id = $this->db->get_where('customer_cart_copy1',array('id'=>$last_cart_id ))->row()->user_id;
+				      $_SESSION['get_time_as_id']=$time_id;
+				      echo true;
+				  }
+				   }
+
+		
+				   
+			
+		    }
+
 		}else{
 			echo 400;
 		}
 
 	}
+    
 
 	public function buy_from_seller(){
 		if($this->session->logged_in){
@@ -329,15 +413,44 @@ class Home extends CI_Controller {
 	}
 
    public function viewcart(){
-	    $customerid = $this->session->userid;;
-	    $this->data['title'] = " View Your Cart";
-	    //$this->data['sumprice'] = $this->home_model->sumprod($customerid);
-		$this->data['getcart'] = $this->home_model->getcustomercart($customerid);
-		// echo "<pre>"; print_r($this->data['getcart']);die;
-		$this->data['sum_total'] = $this->home_model->getsum_total('tbl_sum_total', $customerid);
 
-		$this->data['page_title'] = "viewcart";
-		$this->load->view('layout/index2',$this->data);
+		   // set cookie 
+					// if(array_key_exists('cartitems',$_COOKIE)){
+					// $cookie_get = get_cookie('cartitems');
+					// $cookieres = unserialize($cookie_get);
+					// $productids = implode("','",$cookieres);
+					// 	//get product details 
+					// 		$where = "id ('$productids')";
+					// 		$resentcartvies = $this->home_model->productlistwithID($where);
+					
+					// 		echo " cookie is set ".$res ;
+					// }else{
+					// echo " NOT SET  ";
+					// }
+		  // end cooki
+
+		  if(!$this->session->logged_in){
+			 $this->data['title'] = " View Your Cart";
+			 //$this->data['sumprice'] = $this->home_model->sumprod($customerid);
+			 $this->data['getcart'] = $this->home_model->get_temp_customercart($_SESSION['get_time_as_id']);
+			 $this->data['sum_total'] = $this->home_model->get_tempt_sum_total('tbl_sum_total_copy1',$_SESSION['get_time_as_id']);
+			 $this->data['page_title'] = "viewcart";
+			 $this->load->view('layout/index2',$this->data);
+		   }else{
+			$customerid = $this->session->userid;;
+			$this->data['title'] = " View Your Cart";
+	
+			//$this->data['sumprice'] = $this->home_model->sumprod($customerid);
+			$this->data['getcart'] = $this->home_model->getcustomercart($customerid);
+			// echo "<pre>"; print_r($this->data['getcart']);die;
+			$this->data['sum_total'] = $this->home_model->getsum_total('tbl_sum_total', $customerid);
+	
+			$this->data['page_title'] = "viewcart";
+			$this->load->view('layout/index2',$this->data);
+		 
+		   }
+	  
+	
     }
 
    public function delete_item($id){
@@ -350,15 +463,30 @@ class Home extends CI_Controller {
 	  }
    }
 
+   public function delete_tempt_item($id){
+	$this->data['delete_item'] = $this->home_model->Delete_tempt_Item($id);
+	if($this->data['delete_item']){
+	   $this->session->set_flashdata('msg_delete',' Item deleted successfully');
+	  return redirect(base_url('home/viewcart/'.$id));
+	 }else{
+	  return redirect(base_url('home/viewcart'));
+	}
+ }
+
     public function checkout(){
-        $customerid = $this->session->userid;;
-		$this->data['getprod'] = $this->home_model->getproddetails($customerid);
-		$this->data['sum_total'] = $this->home_model->getsum_total('tbl_sum_total', $customerid);
-		$_SESSION['amount'] = $this->data['sum_total']->sum;
-         //echo "<pre>"; print_r($this->data['getprod']);die;
-		$this->data['title'] = " Checkout";
-		$this->data['page_title'] = "checkout";
-		$this->load->view('layout/index2',$this->data);
+		if(!$this->session->logged_in){
+		  return redirect(base_url('home/custlogin'));
+		}else{
+			$customerid = $this->session->userid;;
+			$this->data['getprod'] = $this->home_model->getproddetails($customerid);
+			$this->data['sum_total'] = $this->home_model->getsum_total('tbl_sum_total', $customerid);
+			$_SESSION['amount'] = $this->data['sum_total']->sum;
+			 //echo "<pre>"; print_r($this->data['getprod']);die;
+			$this->data['title'] = " Checkout";
+			$this->data['page_title'] = "checkout";
+			$this->load->view('layout/index2',$this->data);
+		}
+  
 	}
 
 	public function make_payment(){
@@ -449,12 +577,114 @@ class Home extends CI_Controller {
 		}
 	}
 
-	public function buyprod($id){
+  public function buyprod($id){
+		 if(isset($id)){
+	         $counter =1;
+				$insert_views =[
+					'count_views'=>$counter++,
+					'prod_id'=>$prod_id = $this->home_model->GetSingleProd($id)->id
+				];
+				$getviews = $this->db->get_where('tbl_number_of_views',array('prod_id'=>$id))->row()->count_views;
+		     if($getviews){
+				  $place_count = 1 + $getviews;
+			      $this->home_model->update_count_views($place_count,$id);
+			  }else{
+				$this->home_model->insert_number_of_views('tbl_number_of_views',$insert_views);
+			  }
+			 
+		}
+
+    if($this->session->logged_in){
+		$userid = $this->session->userid;
+	      $data_recent =[
+			'prod_id' =>$id,
+			'user_id'=>$userid
+		   ];
+		   $prod_id_exist = $this->db->get_where('tbl_recent_views',array('prod_id'=>$id,'user_id'=>$userid))->row();
+
+		   if($prod_id_exist ){
+			    $this->home_model->update_recent_views($id,$userid);
+			     // delete products with zero id
+				$this->home_model->delete_prod_with_zeros($id);
+		     }else{
+			    $this->db->insert('tbl_recent_views',$data_recent);
+			 }
+
+			$this->data['title'] = " Buy Product ";
+		    $this->data['page_title'] = "buyprod";
+			// search similar products by category
+			$getcategory = $this->home_model->search_similar_products($id);
+			$this->db->like('category',$getcategory);
+			$this->data['getsimilar_prod'] = $this->db->get('product')->result();
+			
+		    $this->data['num_views']  = $this->db->get_where('tbl_number_of_views',array('prod_id'=>$id))->row()->count_views;
+
+			$this->data['recent_views']  = $this->home_model->get_recent_views($userid,$id);
+			   //echo "<pre>"; print_r($this->data['recent_views'] );die;
+		    $this->data['getsingleprod'] = $this->home_model->GetSingleProd($id);
+		    $this->load->view('layout/index2',$this->data);
+			
+	 }elseif(!$this->session->logged_in){
+		// update the cookie
+				// if(array_key_exists('cartitems',$_COOKIE)){
+				// // already set then get cookie 
+				// $cookie_get = get_cookie('cartitems');
+				// $cookieres = unserialize($cookie_get);
+				// // check if product already present
+				// 	if(in_array($id,$cookieres)){
+				// 		$cookieres[] = $id;
+				// 		}
+				// 		delete_cookie('cartitems');
+				// 		// again set cookie 
+				// 		$cookievalue = serialize($cookieres);
+				// 			$cookiearr = array( 
+				// 				'name'=>'cartitems',
+				// 				'value'=>$cookievalue,
+				// 				'expire'=>'86400'
+				// 			);
+				// 			$this->input->set_cookie($cookiearr);
+
+				// }else{ 
+				// // set cookie
+				// 	$cookie_data[] = $id;
+				// 	$cookievalue = serialize($cookie_data);
+				// 		$cookiearr = array( 
+				// 			'name'=>'cartitems',
+				// 			'value'=>$cookievalue,
+				// 			'expire'=>'6400'
+				// 		);
+				// 		$this->input->set_cookie($cookiearr);
+				// 		print_r($_COOKIE);exit;
+				// }
+
 		$this->data['title'] = " Buy Product ";
 		$this->data['page_title'] = "buyprod";
+		$this->data['num_views']  = $this->db->get_where('tbl_number_of_views',array('prod_id'=>$id))->row()->count_views;
+
 		$this->data['getsingleprod'] = $this->home_model->GetSingleProd($id);
 		$this->load->view('layout/index2',$this->data);
 	}
+	
+	}
+
+   
+    public function like_product(){
+		 $data_likes = [
+			'prod_id'=> $this->input->post('prod_id'),
+			'number_like'=> $this->input->post('countlike')
+		   ];
+		 
+		 $getprod_id = $this->db->get_where('tbl_likes',array('prod_id'=>$this->input->post('prod_id')))->row();
+		 if($getprod_id){
+			 $place_likes = 1 + $getprod_id->number_like;
+		     $this->home_model->updatelikes($getprod_id->prod_id,$place_likes);
+			 echo true;
+		  }else{
+		    $create_like =  $this->db->insert('tbl_likes',$data_likes);
+			echo true;
+		  }
+
+    }
 
 
 

@@ -6,6 +6,9 @@
   font-size:13px;
   text-aling:center;
 }
+.x:hover{
+   border: 5px solid white;
+}
 </style>
 <style>
 .image-container {
@@ -41,6 +44,22 @@
                                    <input type="hidden" id="prod_image" name="prod_image" value="<?=$getsingleprod->prod_image?>">
                                 </center>
                             </div>
+                            <?php if($num_views > 1){?>
+                                <p class="text-success" style="position:relative;bottom:20px;left:25%;"> <?=$num_views?> views </p> 
+                               <?php }else{?>
+                                   <p class="text-success" style="position:relative;bottom:20px;left:25%;"> <?=$num_views?> view </p> 
+                               <?php } ?>
+                                <div>
+                                <input type="hidden" name="countlike" id="countlike" value="<?="1"?>">   
+                                <input type="hidden"  id="prod_id" value="<?=$getsingleprod->id?>">  
+                                <?php $like_prod = $this->db->get_where('tbl_likes',array('prod_id'=>$getsingleprod->id))->row()->number_like ;?>
+                                <?php  if($like_prod > 1){?>
+                                    <button class="border-0 bg-light" id="likeproduct" style="position:relative;width:10%;bottom:60px;left:60%;"><?=$like_prod?>  likes </button>
+                                  <?php }else{?>
+                                    <button class="border-0 bg-light text-success" id="likeproduct" style="position:relative;width:10%;bottom:60px;left:60%;"><?=$like_prod?>  like </button>
+                                  <?php } ?>
+                                  
+                               </div>
                         </div>
              </section>
              <section class="col-lg-6 col-md-6 py-3">
@@ -50,7 +69,7 @@
 
                         <div class="card" id="prod-cover">
                             <div class="card-body">
-                            <h1 class="text-left text-dark  mb-4"> <?=$getsingleprod->prod_name?></h1>
+                            <h1 class="text-left text-dark  mb-4"> <?=(ucfirst($getsingleprod->prod_name))?></h1>
                             <h5 class="text-left text-succes"> <?="&#x20A6;".number_format(($getsingleprod->prod_price),2)?>  </h5>
                             <h5 class="text-left text-danger" style="text-decoration:line-through"> <?="&#x20A6;".number_format(($getsingleprod->prod_price+1000),2)?>  </h5>
                                 <input type="hidden" id="prod_name" name="prod_name" value="<?=$getsingleprod->prod_name?>">
@@ -100,9 +119,56 @@
                             </div>
                                <button type="submit"  class="border-0 text-light pt-2 pb-2" id="btnsubmit" style="background:#8e54e9;"> Add To Cart </button>
                         </div>
-                          <button type="submit"  class="border-0 text-light pt-2 pb-2 w-100 mt-2"  style="background:#8e54e9;"><a href="<?=base_url('home')?>" class="text-light text-decoration-none"> Continue Shopping </a> </button>
+                      <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                    <button type="submit"  class="border-0 text-light pt-2 pb-2 w-100 mt-2"  style="background:#8e54e9;"><a href="<?=base_url('home')?>" class="text-light text-decoration-none"> Continue Shopping </a> </button>
+                            </div>
+                                <div class="col-md-6">
+                                <a class="nav-link  text-light  mt-2 mb-2 text-center" style="background:#8e54e9;"  href="<?=site_url('home/viewcart')?>" tabindex="-1" aria-disabled="true"> View Cart </a>
+                            </div>
+                      </div>
+
              </section>
-      </div>
+
+             <!-- display viewed products -->
+             <?php if($recent_views){ ?>
+             <p> Recently Viewed </p> 
+                 <div class="row"> 
+                     <?php foreach($recent_views as $recentviews){  ?>
+                        <div class="col-md-4 w-25 shadow mt-2 pt-4" style="border:0px solid red;"> 
+                        <center> 
+                            <a href="<?=base_url('home/buyprod/'.$recentviews->product_id)?>" class="text-dark" style="text-decoration:none;">
+                                <img class="w-50" src="<?=base_url('assets/uploads/'.$recentviews->prod_image)?>"> 
+                                <p> <?=$recentviews->prod_name?>   </p> 
+                                <p> <?=number_format($recentviews->prod_price)?>   </p> 
+                            </a>
+                        </center> 
+                        </div>
+                    <?php } ?>
+              <?php } ?>
+               </div>
+
+            <?php if($getsimilar_prod){?>
+               <p class="mt-4"> Related Products </p> 
+                 <div class="row"> 
+                     <?php foreach($getsimilar_prod as $similar_prod){  ?>
+                        <div class="col-md-4 x shadow  w-25 card mt-2 pt-4" style="border:0px solid #8e54e9;"> 
+                        <center> 
+                            <a href="<?=base_url('home/buyprod/'.$similar_prod->id)?>" class="text-dark" style="text-decoration:none;">
+                                <img class="w-50" src="<?=base_url('assets/uploads/'.$similar_prod->prod_image)?>"> 
+                                <p> <?=$recentviews->prod_name?>   </p> 
+                                <p> <?=number_format($recentviews->prod_price)?>   </p> 
+                            </a>
+                            </center> 
+                        </div>
+                    <?php } ?>
+              <?php } ?>
+            </div> 
+         </div> 
+              <!-- customers feedback  --> 
+     
+
+
   </form>
 </div>
 
@@ -147,10 +213,18 @@
                           location.reload();
 					      alert(" Unable to insert into cart!");
 
-					}else if(res==400){
-                         alert(' Please login or create an  account');
-                         window.location = "<?=base_url('home/custlogin')?>";
+					}else{
+                        const z = confirm(' Item already  added to  cart! do wish to view cart?');
+                        if(z){
+                            window.location = "<?=base_url('home/viewcart/')?>";
+                          }else{
+                            window.location = "<?=base_url('home/buyprod/')?>"+prod_id;
+                          }
                     }
+                        // else{
+                        //     alert(' Please login or create an  account to proceed');
+                        //     window.location = "<?=base_url('home/custlogin')?>";
+                        // }
 
 
 				}
@@ -161,5 +235,41 @@
 		}
 
 	});
+
+
+	$('#likeproduct').on('click', function(e) {
+        e.preventDefault();
+         var prod_id = $('#prod_id').val();
+        var countlike = $('#countlike').val();
+
+		if(countlike){
+			$("#butsave").attr("disabled", "disabled");
+			$.ajax({
+				url: "<?php echo base_url("home/like_product");?>",
+				type: "POST",
+				data: {
+					type: 1,
+					countlike,
+                    prod_id
+				},
+				cache: false,
+				success: function(res){
+					if(res==true){
+                       //alert('inserted');
+					}else{
+                      alert(' error cannot insert');
+                    }
+
+				}
+			});
+		}else if(countlike==""){
+			 alert('Please select the quantity of items !');
+            //$('#error').html('please fill all entries !');
+		}
+
+	});
+
+
+
 });
 </script>

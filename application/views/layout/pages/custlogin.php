@@ -15,7 +15,7 @@
                     <input type="text"  name="password" placeholder=" Enter Password" id="password" class="form-control pt-2 pb-2 mt-4" style="width:80%;">
                 </div>
                 <div class="form-group mt-4">
-                    <button type="submit" id="btnsubmit" class="btn  text-light" style="width:80%;background:#ef5f21;"> Login </button>
+                    <button type="submit" id="btnsubmit" class="btn  text-light" style="width:80%;background:#8e54e9;"> Login </button>
                 </div>
                 <a href="<?=site_url('home/signup')?>" class="text-decoration-none mt-2"> Don't  Have An Account </a>
         </div>

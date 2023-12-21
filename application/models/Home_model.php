@@ -27,7 +27,7 @@ class Home_model extends CI_model{
     }
 
 
-    public function createproduct($prodname,$prodprice,$userfile,$prodDetails,$category){
+  public function createproduct($prodname,$prodprice,$userfile,$prodDetails,$category){
        $insert_arr =[
          'prod_name'=>$prodname,
          'prod_image'=>$userfile,
@@ -40,7 +40,7 @@ class Home_model extends CI_model{
         return $insertid;
     }
 
-    public function gellproduct(){
+  public function gellproduct(){
       $query = $this->db->get('product');
       return $query->result();
     }
@@ -60,6 +60,11 @@ class Home_model extends CI_model{
          return $query->result();
   }
 
+  public function get_temp_customercart($customerid){
+    $query = $this->db->get_where('customer_cart_copy1',array('user_id'=>$customerid));
+    return $query->result();
+   }
+
 
   // public function sumprod ($customerid){
   //      $this->db->select('sum(prod_price) as price');
@@ -69,7 +74,7 @@ class Home_model extends CI_model{
   //      return $query->result();
   // }
 
-    public function DeleteItem($data){
+ public function DeleteItem($data){
       $this->db->where('id',$data);
       $del =  $this->db->delete('customer_cart');
       if($del){
@@ -77,12 +82,27 @@ class Home_model extends CI_model{
         return $this->db->delete('tbl_sum_total');
       }
     }
+
+   public function Delete_tempt_Item($data){
+      $this->db->where('id',$data);
+      $del =  $this->db->delete('customer_cart_copy1');
+      if($del){
+        $this->db->where('cart_id',$data);
+        return $this->db->delete('tbl_sum_total_copy1');
+      }
+    }
+
   public function createcart($data){
         $this->db->insert('customer_cart',$data);
         $lastid = $this->db->insert_id();
         return $lastid;
   }
-
+ 
+  public function create_temporal_cart($data){
+    $this->db->insert('customer_cart_copy1',$data);
+    $lastid = $this->db->insert_id();
+    return $lastid;
+  }
 
   public function GetAllProd($table){
     $query = $this->db->get($table);
@@ -97,6 +117,16 @@ class Home_model extends CI_model{
     $query = $this->db->get();
     return $query->row();
   }
+
+  public function get_tempt_sum_total ($table,$data){
+    //$this->db->select_sum('total_sum');
+    $this->db->select('id,user_id, SUM(total_sum) as sum');
+    $this->db->from($table);
+    $this->db->where('user_id',$data);
+    $query = $this->db->get();
+    return $query->row();
+  }
+
 
  public function deleteproduct($table,$urldata){
        $this->db->where('id',$urldata);
@@ -166,5 +196,57 @@ class Home_model extends CI_model{
       return $query->result();
    }
 
+   public function insert_number_of_views($table,$data){
+      $this->db->insert($table,$data);
+      $last_id = $this->db->insert_id();
+      return $last_id;
+   }
+
+   public function update_count_views($place_count,$id){
+        $this->db->where('prod_id',$id);
+        $data =['count_views'=>$place_count];
+        return $this->db->update('tbl_number_of_views',$data);
+    }
+
+  public function updatelikes($getprod_id,$place_likes){
+      $data = ['number_like'=>$place_likes];
+      $this->db->where('prod_id',$getprod_id);
+      return $this->db->update('tbl_likes',$data);
+  }
+
+   public function get_recent_views($userid,$id){
+      $this->db->select('id,prod_name,prod_image,prod_price,tbl_recent_views.prod_id as product_id ');
+      $this->db->from('product');
+      $this->db->join('tbl_recent_views','product.id = tbl_recent_views.prod_id','right');
+      $this->db->where('tbl_recent_views.user_id',$userid);
+       //$this->db->where('tbl_recent_views.prod_id',$id);
+      $query = $this->db->get();
+      return $query->result();
+    }
+
+    public function update_recent_views($id,$userid){
+        $data1 =['prod_id'=>$id];
+        $this->db->where('prod_id',$id);
+        $this->db->where('user_id',$userid);
+        return $this->db->update('tbl_recent_views',$data1);
+    }
+
+    public function delete_prod_with_zeros($id){
+      $this->db->where('prod_id','0');
+      return $this->db->delete('tbl_recent_views');
+    }
+
+    public function search_similar_products($data){
+        $query = $this->db->get_where('product',array('id'=>$data));
+        return $query->row()->category;
+    }
+
+      // public function productlistwithID($where){
+      //   $this->db->select('*');
+      //   $this->db->where($where);
+      //   $qry = $this->db->get('product');
+      //   return $qry->result();
+      
+      // }
 }
 ?>

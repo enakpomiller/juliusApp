@@ -84,6 +84,7 @@ class Sellers extends CI_Controller {
      public function create_item(){
         if($_POST){
               $this->data['location'] = $this->input->post('location');
+              $this->data['category'] = $this->input->post('category');
               $this->data['prod_name'] = $this->input->post('prod_name');
               $this->data['prod_price'] = $this->input->post('prod_price');
               $post = $this->input->post();
@@ -146,7 +147,12 @@ class Sellers extends CI_Controller {
                          $statusMsg = "Sorry, there was an error uploading your file.".$errorUploadType;
                      }
                  }else{
-                    $this->data['title'] = " Create Item";
+                  if($this->session->usertype=='admin'){
+                    //$this->data['title'] = "Admin/ Create Item";
+                  }else{
+                    //$this->data['title'] = " Seller/ Create Item";
+                  }
+                    
                     $this->data['page_name'] = "create_item";
                     $this->load->view('layout/index_seller',$this->data);
                  }
@@ -154,7 +160,12 @@ class Sellers extends CI_Controller {
         // end multiple upload
 
         }else{
-          $this->data['title'] = " Create Item";
+          if($this->session->usertype=='admin'){
+            $this->data['title'] = " Admin/Create Item";
+          }else{
+            $this->data['title'] = " Seller/Create Item";
+          }
+         
           $this->data['page_name'] = "create_item";
           $this->load->view('layout/index_seller',$this->data);
         }

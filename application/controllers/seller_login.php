@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-
 ?>
 
 <?php 
@@ -25,30 +24,30 @@ class Seller_login extends CI_Controller{
           $user = $this->input->post('user');
           $pass = $this->myhash($this->input->post('pass'));
           $checkuserExist = $this->sellers_m->checkuserExist($user,$pass);
-          // login as an Admin
+            //login as an Admin
            $checkadlinexist = $this->sellers_m->adminlogin($user,$pass);
           if($checkuserExist){
             echo true;
-             $data_arr =[
-                'seller_id'=>$checkuserExist->id,
-                'firstname'=>$checkuserExist->firstname,
-                'lastname' =>$checkuserExist->lastname,
-                'username' =>$checkuserExist->username,
-                'userfile' =>$checkuserExist->userfile,
-                'usertype'=>$checkuserExist->type." Seller",
-                'logged_in'=>TRUE
-             ];
+              $data_arr =[
+                  'seller_id'=>$checkuserExist->id,
+                  'firstname'=>$checkuserExist->firstname,
+                  'lastname' =>$checkuserExist->lastname,
+                  'username' =>$checkuserExist->username,
+                  'userfile' =>$checkuserExist->userfile,
+                  'usertype'=>$checkuserExist->type." Seller",
+                  'logged_in'=>TRUE
+              ];
              $this->session->set_userdata($data_arr);
            
            }elseif($checkadlinexist){
-             $data_arr =[
-              'admin_id'=>$checkadlinexist->admin_id,
-              'firstname'=>$checkadlinexist->username,
-              'usertype'=>$checkadlinexist->username,
-              'userfile'=>('admin_avatar.jpeg'),
-              'admin_logged_in'=>TRUE
-             ];
-        
+                $data_arr =[
+                  'admin_id'=>$checkadlinexist->admin_id,
+                  'username'=>$checkadlinexist->username,
+                  'usertype'=>$checkadlinexist->username,
+                  'userfile'=>('admin_avatar.jpeg'),
+                  'admin_logged_in'=>TRUE
+                ];
+     
              $this->session->set_userdata($data_arr);
             echo true;
            }else{

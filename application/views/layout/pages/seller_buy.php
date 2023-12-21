@@ -1,6 +1,5 @@
 
-  <!-- Auto refresh script  --> 
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
 
 <style>
 
@@ -37,6 +36,9 @@
       $_SESSION['prod_id'] =$id;
     
     ?>
+
+
+
 <div class="container bg-#f8f8f8 mt-4 ">
  <form action="<?php echo base_url('home/createcart') ?>" method="POST">
       <div class="row">
@@ -128,7 +130,7 @@
                                          <!-- <textarea rows="4" name="comment" id="comment">Type chart..........</textarea> -->
                                          <div class="card rounded shadow mb-2 border-0" style="width:25rem;margin:auto;">
                                             <img src="..." class="card-img-top" alt="...">
-                                            <div class="card-body" id="refresh-container">
+                                            <div class="card-body">
                                                 <?php  foreach($getchart as $chartrow){ ?>
                                                       <?php if($chartrow->prod_id >'0'){ ?>
                                                         <?php $img_cust =  $this->db->get_where('users',array('userid'=>$this->session->userid))->row();?>
@@ -202,10 +204,7 @@
   </form>
 </div>
 
-<div id="refresh-container">
-    helo
-    <!-- Content will be refreshed here -->
-  </div>
+
 
 <div id="display_result'"></div>
 
@@ -323,27 +322,12 @@
 
 
 });
+
+
+
+
 </script>
 
 
 
-<script>
-    // Function to refresh content using AJAX
-    function refreshContent() {
-      $.ajax({
-        // url: 'your_refresh_endpoint.php', // Replace with your server-side script
-        url: "<?php echo base_url("home/chart_with_seller");?>",
-        type: 'GET',
-        success: function(data) {
-          // Update the content of the container
-          $('#refresh-container').html(data);
-        },
-        error: function(xhr, status, error) {
-          console.error('Error refreshing content:', error);
-        }
-      });
-    }
 
-    // Set interval for auto-refresh (every 5 seconds in this example)
-    setInterval(refreshContent, 5000);
-  </script>
